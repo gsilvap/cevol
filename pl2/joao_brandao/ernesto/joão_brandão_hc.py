@@ -20,7 +20,7 @@ def jb_hc(problem_size, max_iter,fitness):
     candidate = random_indiv(problem_size)
     cost_candi = fitness(candidate,problem_size)
     for i in range(max_iter):
-        next_neighbor = best_neighbor(candidate,fitness)
+        next_neighbor = best_neighbor(candidate,fitness,problem_size)
         cost_next_neighbor = fitness(next_neighbor,problem_size)
         if cost_next_neighbor >= cost_candi:
             candidate = next_neighbor
@@ -33,13 +33,13 @@ def random_indiv(size):
     return [random.randint(0,1) for i in range(size)]
 
 # Best neighbor
-def best_neighbor(individual, fitness):
+def best_neighbor(individual, fitness, problem_size):
     best = individual[:]
     best[0] = (best[0] + 1) % 2
     for pos in range(1,len(individual)):
         new_individual = individual[:]
         new_individual[pos]= (individual[pos] + 1) % 2
-        if fitness(new_individual) > fitness(best):
+        if fitness(new_individual, problem_size) > fitness(best, problem_size):
             best = new_individual
     return best
 
