@@ -5,13 +5,13 @@ from math import exp, sin, cos, pi
 
 
 # --- HILL-CLIMBING
-def basic_hc(problem_size, fitness, max_iter, neighbor_chooser, pesos):
+def basic_hc(problem_size, fitness, max_iter, neighbor_chooser, pesos, valores, capacidade):
     """Maximization."""
-    candidate = choose_random_candidate(problem_size)
-    cost_candi = fitness(candidate)
+    candidate = random_candidate_bin_knapsack(problem_size, pesos, valores, capacidade)
+    cost_candi = fitness(candidate, pesos, valores, capacidade)
     for i in range(max_iter):
         next_neighbor = neighbor_chooser(candidate, fitness)
-        cost_next_neighbor = fitness(next_neighbor)
+        cost_next_neighbor = fitness(next_neighbor,pesos, valores, capacidade)
         if cost_next_neighbor >= cost_candi:
             candidate = next_neighbor
             cost_candi = cost_next_neighbor
@@ -75,6 +75,11 @@ def random_neighbor_float(domain,individual,sigma=1):
 def random_candidate_bin(size):
     return [random.choice([0,1]) for i in range(size)]
 
+
+def random_candidate_bin_knapsack(size, pesos, valores, capacidade):
+    return [random.choice([0,1]) for i in range(size)]
+
+
 def random_candidate_float(sp):
     return [random.uniform(sp[i][0],sp[i][1]) for i in range(len(sp))]
 
@@ -95,10 +100,11 @@ def de_jong_f1(individual):
     """
     return sum([ x_i ** 2 for x_i in individual])
 
-def knapsack_simple_fitness(individual, pesos, valores):
+def knapsack_simple_fitness(individual, pesos, valores, capacidade):
     fitness = 0
+    peso = 0
     for i in range(len(pesos)):
-        if(individual):
+        if(individual[i]):
             fitness += valores[i]
             peso += pesos[i]
     return fitness if peso<capacidade else 0
@@ -107,14 +113,18 @@ def knapsack_simple_fitness(individual, pesos, valores):
 
 if __name__ == '__main__':
     tam = [100,250,500]
-
     #array generator: [int(100*random.random()) for i in xrange(10)]
-    pesos = [911, 863, 790, 637, 68, 897, 179, 326, 939, 273]
+    pesos = [911, 863, 790, 637, 468, 897, 379, 626, 939, 273]
     valores = [55, 11, 51, 88, 30, 61, 95, 31, 60, 71]
+    capacidade = sum(pesos)/2
+    #print "capacidade: " + str(capacidade)
     problem_size = len(pesos)
-    max_iter = 10
-
-    print(basic_hc(problem_size,knapsack_simple_fitness,max_iter, random_neighbor_bin, best))
+    max_iter = 100
+    print "###############"
+    print "knapsack_simple_fitness and random neighbor:"
+    solution = basic_hc(problem_size,knapsack_simple_fitness,max_iter, random_neighbor_bin, pesos, valores, capacidade)
+    print solution
+    print "fitness: " + str(knapsack_simple_fitness(solution,pesos, valores, capacidade))
     #print(basic_hc(problem_size,knapsack_simple_fitness,4, best_neighbor_bin, best))
     #print(random_restart_hc(20,onemax,200,30))
 
