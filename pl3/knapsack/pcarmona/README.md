@@ -19,18 +19,24 @@ READ ME
 
 Sem correlacao
 
-P[i] -> Peso do item -> uniforme (1..N)
-V[i] -> Valor do item -> uniforme (1..N)
-C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
+- P[i] -> Peso do item -> uniforme (1..N)
+
+- V[i] -> Valor do item -> uniforme (1..N)
+
+- C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
 
 Fortemente Correlacionado
 
-P[i] -> Peso do item -> uniforme (1..N)
-V[i] -> Valor do item -> P[i] + r
-C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
+- P[i] -> Peso do item -> uniforme (1..N)
+
+- V[i] -> Valor do item -> P[i] + r
+
+- C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
 
 Média correlação
 
-P[i] -> Peso do item -> uniforme (1..N)
-V[i] -> Valor do item -> P[i] + uniforme(-r,r)
-C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
+- P[i] -> Peso do item -> uniforme (1..N)
+
+- V[i] -> Valor do item -> P[i] + uniforme(-r,r)
+
+- C = sum(P)/2 -> capacidade, por exemplo metade dos pesos
