@@ -34,14 +34,14 @@ def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,rec
        # ------ Crossover
         progenitores = []
         for j in  range(0,size_pop-1,2):
-            cromo_1= mate_pool[j]
-            cromo_2 = mate_pool[j+1]
+            cromo_1= mate_pool[j][:]
+            cromo_2 = mate_pool[j+1][:]
             filhos = recombination(cromo_1,cromo_2, prob_cross)
             progenitores.extend(filhos)
         # ------ Mutation
         descendentes = []
         for indiv,fit in progenitores:
-            novo_indiv = indiv
+            novo_indiv = indiv[:]
             novo_indiv = mutation(indiv,prob_mut)
             descendentes.append((novo_indiv,0))
 
@@ -62,7 +62,7 @@ def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,rec
 
     #display_data(bests,averages)
 
-    print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d\nBest:%4.2f\nAVG:%4.2f\n------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo),best, avg))
+    print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
 
     #return phenotype(populacao[0][0])
     return bests,averages
@@ -183,13 +183,13 @@ if __name__ == '__main__':
 
     #print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
     size_pop= 2000
-    size_cromo= 50
+    size_cromo= 30
     numb_generations = 25
     cromossomas = [10,20,50]
     bsts = []
     avgs = []
-    for i in range(0,len(3)):
-        bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
+    for i in range(0,10):
+        bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.2,3)
         bsts = max(bests,bsts)
         avgs = avg_of_avg(avgs, averages)
 
