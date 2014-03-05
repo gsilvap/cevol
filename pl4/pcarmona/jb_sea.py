@@ -60,7 +60,7 @@ def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,rec
         bests.append(best_fit)
         averages.append(avg_fit)
 
-    display_data(bests,averages)
+    #display_data(bests,averages)
 
     print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d\nBest:%4.2f\nAVG:%4.2f\n------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo),best, avg))
 
@@ -164,7 +164,17 @@ def display_data(data1,data2):
     plt.plot(x2,data2, 'b')
     plt.show()
 
+def avg_of_avg(data1, data2):
+    avg = []
+    if(len(data1) == 0):
+        return data2
+    if(len(data2) == 0):
+        return data1
 
+    for i in range(0, len(data1)):
+        avg.append((data1[i] + data2[i]) / 2)
+
+    return avg
 
 if __name__ == '__main__':
     #print(viola([1,3,4,9,10],10))
@@ -176,12 +186,12 @@ if __name__ == '__main__':
     size_cromo= 50
     numb_generations = 25
     cromossomas = [10,20,50]
-    bests = []
+    bsts = []
     avgs = []
-    for size_cromo in cromossomas:
-        best_fit,avg_fit = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
-        bests.append(best_fit)
-        avgs.append(avg_fit)
+    for i in range(0,len(3)):
+        bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
+        bsts = max(bests,bsts)
+        avgs = avg_of_avg(avgs, averages)
 
     display_data(bests,avgs)
 
