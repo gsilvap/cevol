@@ -17,22 +17,25 @@ from random import random,randint, shuffle, uniform,sample
 from operator import itemgetter
 from math import sqrt
 
-
 def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,recombination,mutation,survivors, fit_func, phenotype,elite,t_size):
     # inicializa população: indiv = (cromo,fit)
     populacao = [(gera_indiv(size_cromo),0) for j in range(size_pop)]
     # avalia população
     populacao = [ [indiv[0], fit_func(indiv[0])] for indiv in populacao]
     populacao.sort(key=itemgetter(1), reverse = True) # Maximização
+
+    bests = []
+    averages = []
+
     for i in range(numb_generations):
         # selecciona progenitores
         mate_pool = selection(populacao, t_size)
-	# Variation
-	# ------ Crossover
+       # Variation
+       # ------ Crossover
         progenitores = []
-        for i in  range(0,size_pop-1,2):
-            cromo_1= mate_pool[i]
-            cromo_2 = mate_pool[i+1]
+        for j in  range(0,size_pop-1,2):
+            cromo_1= mate_pool[j]
+            cromo_2 = mate_pool[j+1]
             filhos = recombination(cromo_1,cromo_2, prob_cross)
             progenitores.extend(filhos)
         # ------ Mutation
@@ -41,13 +44,28 @@ def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,rec
             novo_indiv = indiv
             novo_indiv = mutation(indiv,prob_mut)
             descendentes.append((novo_indiv,0))
+
+        descendentes = [ [indiv[0], fit_func(indiv[0])] for indiv in descendentes]
+        descendentes.sort(key=itemgetter(1), reverse = True) # Maximização
+
         # New population
         populacao = survivors(populacao,descendentes,elite)
         # Avalia e ordena nova _população
         populacao = [[indiv[0], fit_func(indiv[0])] for indiv in populacao]
         populacao.sort(key=itemgetter(1), reverse = True) # Maximização
-    print("Indivíduo: %s\nMérito: %4.2f\nViolações:%d" % (phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
-    return phenotype(populacao[0][0])
+
+        #print populacao
+        best_fit = populacao[0][1]
+        avg_fit =  average(populacao)
+        bests.append(best_fit)
+        averages.append(avg_fit)
+
+    display_data(bests,averages)
+
+    print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d\nBest:%4.2f\nAVG:%4.2f\n------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo),best, avg))
+
+    #return phenotype(populacao[0][0])
+    return bests,averages
 
 
 # Representaçtuion by binary strings
@@ -75,10 +93,10 @@ def muta_bin_gene(gene, prob_muta):
 def one_point_cross(cromo_1, cromo_2,prob_cross):
 	value = random()
 	if value < prob_cross:
-		pos = randint(0,len(cromo_1))
-		f1 = cromo_1[0:pos] + cromo_2[pos:]
-		f2 = cromo_2[0:pos] + cromo_1[pos:]
-		return [f1,f2]
+		pos = randint(0,len(cromo_1[0]))
+		f1 = cromo_1[0][0:pos] + cromo_2[0][pos:]
+		f2 = cromo_2[0][0:pos] + cromo_1[0][pos:]
+		return [[f1,0],[f2,0]]
 	else:
 		return [cromo_1,cromo_2]
 
@@ -133,9 +151,38 @@ def viola(indiv,comp):
 	    v+=vi
     return v
 
+def average(populacao):
+    return sum([individuo[1] for individuo in populacao])/len(populacao)
+
+
+def display_data(data1,data2):
+    """Plot the data"""
+    x1 = list(range(len(data1)))
+    x2 = list(range(len(data2)))
+    plt.grid(True)
+    plt.plot(x1,data1, 'r')
+    plt.plot(x2,data2, 'b')
+    plt.show()
+
+
 
 if __name__ == '__main__':
     #print(viola([1,3,4,9,10],10))
     #print(merito([1,0,1,1,0,0,0,0,1,1]))
     #print(viola([2, 5, 7, 14, 15, 17, 18, 19, 24, 25, 27, 30, 32, 33, 35, 36, 38, 39],40))
-    print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
+
+    #print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
+    size_pop= 2000
+    size_cromo= 50
+    numb_generations = 25
+    cromossomas = [10,20,50]
+    bests = []
+    avgs = []
+    for size_cromo in cromossomas:
+        best_fit,avg_fit = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
+        bests.append(best_fit)
+        avgs.append(avg_fit)
+
+    display_data(bests,avgs)
+
+
