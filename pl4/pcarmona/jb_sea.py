@@ -13,6 +13,7 @@ __date__ = 'March 2014'
 
 import matplotlib
 from pylab import *
+import numpy as np
 from random import random,randint, shuffle, uniform,sample
 from operator import itemgetter
 from math import sqrt
@@ -62,7 +63,7 @@ def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,rec
 
     #display_data(bests,averages)
 
-    print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
+    print("NGeracoes: %s\nIndivíduo: %s\nMérito: %4.2f\nViolações:%d\n------" % (numb_generations,phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
 
     #return phenotype(populacao[0][0])
     return bests,averages
@@ -164,17 +165,9 @@ def display_data(data1,data2):
     plt.plot(x2,data2, 'b')
     plt.show()
 
-def avg_of_avg(data1, data2):
-    avg = []
-    if(len(data1) == 0):
-        return data2
-    if(len(data2) == 0):
-        return data1
-
-    for i in range(0, len(data1)):
-        avg.append((data1[i] + data2[i]) / 2)
-
-    return avg
+def avg_of_avg(avg_matrix):
+    sum = np.sum(avg_matrix,axis=0)
+    return sum/len(avg_matrix)
 
 if __name__ == '__main__':
     #print(viola([1,3,4,9,10],10))
@@ -184,15 +177,16 @@ if __name__ == '__main__':
     #print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
     size_pop= 2000
     size_cromo= 30
-    numb_generations = 25
+    numb_generations = 50
     cromossomas = [10,20,50]
-    bsts = []
-    avgs = []
+    best_of_bests = []
+    avg_matrix = []
     for i in range(0,10):
         bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.2,3)
-        bsts = max(bests,bsts)
-        avgs = avg_of_avg(avgs, averages)
+        best_of_bests = max(bests,best_of_bests)
+        avg_matrix.append(averages)
 
+    avgs = avg_of_avg(avg_matrix)
     display_data(bests,avgs)
 
 
