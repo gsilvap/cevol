@@ -175,14 +175,13 @@ if __name__ == '__main__':
     #print(viola([2, 5, 7, 14, 15, 17, 18, 19, 24, 25, 27, 30, 32, 33, 35, 36, 38, 39],40))
 
     #print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
-    size_pop= 2000
-    size_cromo= 30
-    numb_generations = 50
-    cromossomas = [10,20,50]
+    size_pop= 10
+    size_cromo= 20
+    numb_generations = 10
     best_of_bests = []
     avg_matrix = []
     for i in range(0,10):
-        bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.2,3)
+        bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
         best_of_bests = max(bests,best_of_bests)
         avg_matrix.append(averages)
 
