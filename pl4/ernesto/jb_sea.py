@@ -10,77 +10,83 @@ Ernesto Costa Março 2014!
 __author__ = 'Ernesto Costa'
 __date__ = 'March 2014'
 
-import matplotlib
-from pylab import *
+
 from random import random,randint, shuffle, uniform,sample
 from operator import itemgetter
 from math import sqrt
-
-
+from copy import deepcopy
+ 
 def sea(numb_generations,size_pop, size_cromo, prob_mut,prob_cross,selection,recombination,mutation,survivors, fit_func, phenotype,elite,t_size):
-    # inicializa população: indiv = (cromo,fit)
+    if int(size_pop * elite) == 0:
+        print('No Elitism will be used!!!')    
+    #  initialize population: [...,indiv,....] with indiv = (cromo,fit)
     populacao = [(gera_indiv(size_cromo),0) for j in range(size_pop)]
-    # avalia população
-    populacao = [ [indiv[0], fit_func(indiv[0])] for indiv in populacao]
-    populacao.sort(key=itemgetter(1), reverse = True) # Maximização
+    # evaluate population
+    populacao = [[indiv[0], fit_func(indiv[0])] for indiv in populacao]
+    populacao.sort(key=itemgetter(1), reverse = True) # Maximizing!
     for i in range(numb_generations):
-        # selecciona progenitores
-        mate_pool = selection(populacao, t_size)
+	# work with a copy of the population
+        aux_populacao = deepcopy(populacao)
+        # select parents
+        mate_pool = selection(aux_populacao, t_size)
 	# Variation
 	# ------ Crossover
         progenitores = []
         for i in  range(0,size_pop-1,2):
-            cromo_1= mate_pool[i]
-            cromo_2 = mate_pool[i+1]
+            cromo_1= mate_pool[i][0]
+            cromo_2 = mate_pool[i+1][0]
             filhos = recombination(cromo_1,cromo_2, prob_cross)
             progenitores.extend(filhos)  
         # ------ Mutation
         descendentes = []
-        for indiv,fit in progenitores:
-            novo_indiv = indiv
-            novo_indiv = mutation(indiv,prob_mut)
-            descendentes.append((novo_indiv,0))
+        for cromo,fit in progenitores:
+            novo_cromo = cromo
+            novo_cromo = mutation(cromo,prob_mut)
+            descendentes.append((novo_cromo,0))
+        descendentes = [ [indiv[0], fit_func(indiv[0])] for indiv in descendentes]
+        descendentes.sort(key=itemgetter(1), reverse = True)
         # New population
         populacao = survivors(populacao,descendentes,elite)
-        # Avalia e ordena nova _população
+        # Evaluate and sort
         populacao = [[indiv[0], fit_func(indiv[0])] for indiv in populacao]
-        populacao.sort(key=itemgetter(1), reverse = True) # Maximização    
-    print("Indivíduo: %s\nMérito: %4.2f\nViolações:%d" % (phenotype(populacao[0][0]), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
-    return phenotype(populacao[0][0])
+        populacao.sort(key=itemgetter(1), reverse = True) # Maximizing
+    print("Individual: %s\nSize: %s\nFitness: %4.2f\nViolations:%d" % (phenotype(populacao[0][0]), len(phenotype(populacao[0][0])), populacao[0][1],viola(phenotype(populacao[0][0]), size_cromo)))
+
+    return 0
 
 
-# Representaçtuion by binary strings
+# Representation by binary strings
 def gera_indiv(size_cromo):
     indiv = [randint(0,1) for i in range(size_cromo)]
     return indiv
 
-# mutation
+# mutation: chromosome
 	    
-def muta_bin(indiv,prob_muta):
-    cromo = indiv[:]
-    for i in range(len(indiv)):
+def muta_bin(cromo,prob_muta):
+    for i in range(len(cromo)):
         cromo[i] = muta_bin_gene(cromo[i],prob_muta)
     return cromo
 
-# binário
+#mutation: gene
 def muta_bin_gene(gene, prob_muta):
     g = gene
     value = random()
     if value < prob_muta:
         g ^= 1
     return g
-# Xover
 
+# Xover
 def one_point_cross(cromo_1, cromo_2,prob_cross):
-	value = random()
-	if value < prob_cross:
-		pos = randint(0,len(cromo_1))
-		f1 = cromo_1[0:pos] + cromo_2[pos:]
-		f2 = cromo_2[0:pos] + cromo_1[pos:]
-		return [f1,f2]
-	else:
-		return [cromo_1,cromo_2]
-	    
+    # in: cromo, out: indiv
+    value = random()
+    if value < prob_cross:
+	    pos = randint(0,len(cromo_1))
+	    f1 = cromo_1[0:pos] + cromo_2[pos:]
+	    f2 = cromo_2[0:pos] + cromo_1[pos:]
+	    return [(f1,0),(f2,0)]
+    else:
+	    return [(cromo_1,0),(cromo_2,0)]
+	
 # Tournament Selection
 
 def tournament_selection(population,t_size):
@@ -99,7 +105,7 @@ def tournament(population,size):
 
 # Survivals: elitism
 def survivors_elitism(parents,offspring,elite):
-    """ Assunption: no size problems"""
+    """ Assumption: no size problems. Both populations are ordered by fitness."""
     size = len(parents)
     comp_elite = int(size* elite)
     new_population = parents[:comp_elite] + offspring[:size - comp_elite]
@@ -117,7 +123,7 @@ def phenotype(indiv):
 
 def evaluate(indiv, comp):
     alfa = 1.5
-    beta = -1
+    beta = -2
     return alfa * len(indiv) + beta * viola(indiv,comp)
 
 def viola(indiv,comp):
@@ -132,9 +138,6 @@ def viola(indiv,comp):
 	    v+=vi
     return v
 
-
 if __name__ == '__main__':
-    #print(viola([1,3,4,9,10],10))
-    #print(merito([1,0,1,1,0,0,0,0,1,1]))
-    #print(viola([2, 5, 7, 14, 15, 17, 18, 19, 24, 25, 27, 30, 32, 33, 35, 36, 38, 39],40))
-    print(sea(500, 2000,10,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3))
+	"""This is just one example of values of the parameters..."""
+    sea(10, 10,20,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
