@@ -176,12 +176,17 @@ def avg_of_avg(avg_matrix):
 
 if __name__ == '__main__':
     """This is just one example of values of the parameters..."""
-    size_pop= 10
-    size_cromo= 20
-    numb_generations = 10
+    #size_pop= 10
+    #size_cromo= 20
+    #numb_generations = 30
+
+    size_pop= 2000
+    size_cromo= 30
+    numb_generations = 50
+
     best_of_bests = []
     avg_matrix = []
-    for i in range(0,10):
+    for i in range(0,30):
         bests,averages = sea(numb_generations, size_pop,size_cromo,0.3,0.7,tournament_selection,one_point_cross,muta_bin,survivors_elitism, fitness,phenotype, 0.02,3)
         best_of_bests = max(bests,best_of_bests)
         avg_matrix.append(averages)
