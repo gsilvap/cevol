@@ -4,7 +4,7 @@ Problemas de Teste
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Não     | Nao     | Sim   |
+| Sim     | Nao     | Sim   |
 
 
 ###Representação:
@@ -12,20 +12,35 @@ vector binario
 ###Qualidade:
 numero de 0s. Qualidade maximo: vector com tudo uns
 ###Porque é que é bom para mutacao/ crossover:
-
+Se fosse selecao de pais era muito mau com este problema. Mas para nós é aceitavel porque fazemos variacao dos individuos.
 
 
 8.2 SAT: Satisfiabilidade de uma fórmula booleana
 
-###Representação:
+| Gonçalo | Joao    | Pedro |
+|---------|---------|-------|
+| Não     | Nao     | Não   |
 
+###Representação:
+vector binario
 ###Qualidade:
+Não sabemos!
+###Porque é que é bom para mutacao/ crossover:
 
 
 8.3 Números de João Brandão
-###Representação:
 
+| Gonçalo | Joao    | Pedro |
+|---------|---------|-------|
+| Não     | Nao     | Não. ja fizemos na aula   |
+
+maior cadeia em que a media de dois numeros nao é representada nessa cadeia
+###Representação:
+array de numeros inteiro menores do que n. seja n o max do alfabeto
 ###Qualidade:
+maior qcomprimento do array em que nao haja erros, mas tambem temos de contemplar quanto maior for o array mais perto estamos da solucao e interessa seguir este caminho
+###Porque é que é bom para mutacao/ crossover:
+acho que dá
 
 8.4 Caixeiro Viajante - Travelling Salesman Problem
 ###Representação:
