@@ -1,6 +1,6 @@
 \documentclass[12pt,portuguese,a4paper]{article}
 \usepackage[T1]{fontenc}
-\usepackage[scaled]{luximono}
+%\usepackage[scaled]{luximono}
 \usepackage{amsmath}
 \usepackage{babel}
 \usepackage{graphicx}
@@ -52,11 +52,11 @@
 \renewcommand\lstlistingname{Listagem}
 
 \DeclareUrlCommand\email{\urlstyle{rm}}
-% 
+%
     % \renewcommand\UrlLeft{e-amail:\ }%
      %\renewcommand\UrlRight{}}
 
-% cores 
+% cores
 \definecolor{cinza}{rgb}{0.7,0.7,0.7}
 
 % Comecemos!!!
@@ -66,7 +66,7 @@
 \author{\textbf{Ernesto J. F. Costa} \\ \email{ernesto@dei.uc.pt}\\Departamento de Engenharia Inform‡tica \\ Universidade de Coimbra}
 
 
-\date{\today} 
+\date{\today}
 
 
 
@@ -92,7 +92,7 @@ Este pequeno texto pretende exemplificar o modelo de documento que devem entrega
 \textit{Aqui deve ser descrito qual o tema, a sua import‰ncia, os objectivos do trabalho e o modo como o texto est‡ organizado.}
 
 
-\section{Problema} 
+\section{Problema}
 
 \lettrine[lines=2,lraise=0.2]{S}{— para exemplificar} outro modo de come\c car uma sec\c c‹o. Claro que n‹o Ž obrigado a fazer as coisas deste modo. Como hoje Ž sexta, faz muito calor  e l‡fora o dia est‡ bonito, deu para masoquisticamente me castigar. H‡ coisas piores eu sei. Mas h‡ coisas em rela\c c‹o ˆs quais n‹o consigo resistir. ƒ isso e estar a escrever patetices s— para ter texto suficiente para o efeito que pretendo exemplificar sair real\c cado. Ou n‹o \ldots\\\\
 
@@ -119,8 +119,8 @@ Isto das tabelas em \LaTeX{} pode ser um bom quebra-cabe\c cas \ldots J‡ existem
 \begin{center}
 \begin{tabular}{|c|cc|cc|cc|cc|} \hline
 \raisebox{-1.5ex}[0cm][0cm]{Tipo} & \multicolumn{8}{c|}{Fun\c c‹o}\\ \cline{2-9}
-& \multicolumn{2}{c|}{$F_{1}$} & \multicolumn{2}{c|}{$F_{2}$} &\multicolumn{2}{c|}{$F_{3}$} & \multicolumn{2}{c|}{$F_{4}$} \\ \hline 
-Pop & 10  & 100  & 10  & 100 & 10  & 100 & 10  & 100 \\ \hline 
+& \multicolumn{2}{c|}{$F_{1}$} & \multicolumn{2}{c|}{$F_{2}$} &\multicolumn{2}{c|}{$F_{3}$} & \multicolumn{2}{c|}{$F_{4}$} \\ \hline
+Pop & 10  & 100  & 10  & 100 & 10  & 100 & 10  & 100 \\ \hline
 GA &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
 EE &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
 GP &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
@@ -136,8 +136,8 @@ Outro modo de obter o mesmo resultado, agora usando o comando \texttt{multirow} 
 \begin{center}
 \begin{tabular}{|c|cc|cc|cc|cc|} \hline
  \multirow{2}{*}{Tipo} & \multicolumn{8}{> {\columncolor{red}}c|}{Fun\c c‹o}\\ \cline{2-9}
-& \multicolumn{2}{c|}{$F_{1}$} & \multicolumn{2}{c|}{$F_{2}$} &\multicolumn{2}{c|}{$F_{3}$} & \multicolumn{2}{c|}{$F_{4}$} \\ \hline 
-\rowcolor{cinza} Pop & 10  & 100  & 10  & 100 & 10  & 100 & 10  & 100 \\ \hline 
+& \multicolumn{2}{c|}{$F_{1}$} & \multicolumn{2}{c|}{$F_{2}$} &\multicolumn{2}{c|}{$F_{3}$} & \multicolumn{2}{c|}{$F_{4}$} \\ \hline
+\rowcolor{cinza} Pop & 10  & 100  & 10  & 100 & 10  & 100 & 10  & 100 \\ \hline
 GA &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
 EE &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
 GP &  2 & 3 & 4 & 5 & \multicolumn{1} {>{\columncolor{blue}} c} {\textcolor{white}{6} }& 7 & 8 & 9 \\ \hline
@@ -147,7 +147,7 @@ GP &  2 & 3 & 4 & 5 & \multicolumn{1} {>{\columncolor{blue}} c} {\textcolor{whit
 \label{tab:ola2}
 \end{table}
 
-% for\c car uma nova p‡gina 
+% for\c car uma nova p‡gina
 
 \pagebreak[4]
 
