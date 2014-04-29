@@ -5,7 +5,7 @@ cevol
 #Enunciado do projeto
 __________________
 
-3.2 TP2- Operadores de Variação Variáveis
+TP2- Operadores de Variação Variáveis
 - Descrição Sumaria
 
 Desde sempre foi objecto de discussão a importância relativa dos operadores
