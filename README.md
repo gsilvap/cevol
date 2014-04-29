@@ -5,8 +5,8 @@ cevol
 #Enunciado do projeto
 __________________
 
-TP2- Operadores de Variação Variáveis
-- Descrição Sumaria
+## TP2- Operadores de Variação Variáveis
+- <b>Descrição Sumaria </b>
 
 Desde sempre foi objecto de discussão a importância relativa dos operadores
 de variação, em particular a mutação e a recombinação. Normalmente, escolhidos
@@ -16,7 +16,7 @@ que a recombinacão e mais importante no inicio e a mutação mais importante
 no final. Vamos procurar tirar isso a limpo. Use um dos problemas de
 referência para fazer o estudo, justiçando a opção que efectuou.
 
-- Objectivos
+- <b>Objectivos</b>
 
 Faca uns testes preliminares que lhe permita definir valores aceitáveis para os
 diferentes parâmetros do seu AG. Testes três versões do algoritmo genético
