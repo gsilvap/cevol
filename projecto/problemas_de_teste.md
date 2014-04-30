@@ -74,7 +74,7 @@ menor numero itens.
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
@@ -86,7 +86,7 @@ menor numero itens.
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
@@ -96,9 +96,12 @@ menor numero itens.
 
 8.9 Detector de Paridade Par - 5- Even Bit Parity
 
+
+NAO PERCEBEMOS
+
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
@@ -110,7 +113,7 @@ menor numero itens.
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim 2º    | Nao     | Impossivel,nao sei a representacao...estimar quanto tempo vamos estar a fazer o codigo base.   |
+| Não. em 10ºq    | Nao     | Impossivel,nao sei a representacao...estimar quanto tempo vamos estar a fazer o codigo base.   |
 
 ###Representação:
 comeu ou nao
@@ -121,10 +124,9 @@ comeu ou nao
 8.11 Funções
 
 #8.11.1 Quartic
-
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
@@ -136,7 +138,7 @@ comeu ou nao
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
@@ -148,7 +150,7 @@ comeu ou nao
 
 | Gonçalo | Joao    | Pedro |
 |---------|---------|-------|
-| Sim     | Nao     | Sim   |
+|      |      |    |
 
 ###Representação:
 
