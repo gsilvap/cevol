@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 __author__ = 'pcarmona@gmail.com'
 
 import copy
@@ -8,58 +10,7 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 
 # ----------------------------- EXPERIMENT --------------------------------------------------------------------------
-def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
-    with open(filename,'w') as f_data:
-        f_data.write('one_point_cross, uniform_cross\n')
-        for i in range(numb_runs):
-            print('RUN...%s' % (i+1))
-            initial_pop = init_pop(pop_size, cromo_size)
-            best_1 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[0], select_survivors, max_gener)
-            best_2 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[1], select_survivors, max_gener)
-            f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1] + '\n')
-        f_data.close()
-        show(filename)
 
-# show results
-def show(filename):
-    with open(filename,'r') as f_data:
-        data_1 = []
-        data_2 = []
-        for line in f_data:
-            data = line[:-1].split(', ')
-            data_1.append(str(data[0]))
-            data_2.append(str(data[1]))
-        plt.grid(True)
-        plt.title('Rastrigin')
-        plt.xlabel('Run')
-        plt.ylabel('Best')
-        plt.plot(data_1, label='One-point')
-        plt.plot(data_2,label='Uniform')
-        plt.legend(loc='upper left')
-        plt.show()
-
-# ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
-def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
-    pop_size = len(initial_pop)
-    population = eval_pop(initial_pop, fitness_func)
-    for gener in range(max_gener):
-        mates = select_parents(population,pop_size,3)
-        offspring = crossover(mates, prob_cross, cross_method)
-        offspring = mutation(offspring, prob_muta,muta_method)
-        offspring = eval_pop(offspring,fitness_func)
-        population = select_survivors(population, offspring)
-    best_individual = best_pop(population)
-    return best_individual
-
-# --------------------------- Auxiliary Functions
-def init_pop(pop_size, cromo_size):
-    """Return a list of individuals, where each indicidual has the forma [chromo, 0]"""
-    population = [[cromo_reals(cromo_size),0] for count in range(pop_size)]
-    return population
-
-def cromo_reals(size):
-    cromo =[random.uniform(-5.12,5.12) for i in range(size)]
-    return cromo
 
 def eval_pop(population,fitness_function):
     return [[indiv[0], fitness_function(indiv[0])] for indiv in population]
