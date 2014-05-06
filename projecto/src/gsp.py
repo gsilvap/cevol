@@ -3,7 +3,8 @@ from sqlalchemy.sql.sqltypes import _DateAffinity
 __author__ = 'GonçaloSilva'
 
 import time
-import copy
+from copy import deepcopy
+from numpy import *
 import random
 from operator import itemgetter
 import matplotlib.pyplot as plt
@@ -30,34 +31,36 @@ def show(filename):
             data_1.append(str(data[0]))
             data_2.append(str(data[1]))
         plt.grid(True)
-        plt.title('Rastrigin')
+        plt.title('Fitness')
         plt.xlabel('Run')
         plt.ylabel('Best')
-        plt.plot(data_1, label='One-point')
-        plt.plot(data_2,label='Uniform')
-        plt.legend(loc='upper left')
+        #plt.plot(data_1, label='One-point')
+        #plt.plot(data_2,label='Uniform')
+        #plt.legend(loc='upper left')
         plt.show()
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
     pop_size = len(initial_pop)
     population = eval_pop(initial_pop, fitness_func)
+    for i in range(len(population)):
+                print(population[i])
     for gener in range(max_gener):
         mates = select_parents(population,pop_size,3)
         offspring = crossover(mates, prob_cross, cross_method)
         offspring = mutation(offspring, prob_muta,muta_method)
         offspring = eval_pop(offspring,fitness_func)
-        population = select_survivors(population, offspring)
+        # population = select_survivors(population, offspring)
     best_individual = best_pop(population)
     return best_individual
 
 def init_pop(pop_size, cromo_size):
-    """Return a list of individuals, where each indicidual has the forma [chromo, 0]"""
-    population = [[cromo_reals(cromo_size),0] for count in range(pop_size)]
+    population = [[cromo_bin(cromo_size),0] for count in range(pop_size)]
     return population
 
-def cromo_reals(size):
-    cromo =[random.choice([0,1]) for i in range(size)]
+def cromo_bin(size):
+    cromo =[random.randint(0,1) for i in range(size)]
+    #print(cromo)
     return cromo
 
 def eval_pop(population,fitness_function):
@@ -66,7 +69,7 @@ def eval_pop(population,fitness_function):
 # ---------------------------------- Genetic Operators
 # ------------- Crossover
 def crossover(population,prob_cross, method):
-    new_population = copy.deepcopy(population)
+    new_population = deepcopy(population)
     offspring = []
     for i in range(0,len(population)-1,2):
         off_1,off_2 = method(new_population[i][0], new_population[i+1][0],prob_cross)
@@ -103,7 +106,7 @@ def uniform_cross(cromo_1, cromo_2,prob_cross):
 
 #---------------- Mutation
 def mutation(population, prob_muta, method):
-    new_population = copy.deepcopy(population)
+    new_population = deepcopy(population)
     offspring = []
     for i in range(len(population)):
         off = method(new_population[i][0],prob_muta)
@@ -112,7 +115,7 @@ def mutation(population, prob_muta, method):
 
 def muta_reals_rastrigin(chromo, prob_muta):
     """For Rastrigin..."""
-    new_chromo = copy.deepcopy(chromo)
+    new_chromo = deepcopy(chromo)
     for i in range(len(new_chromo)):
         new_chromo[i] = muta_reals_gene(new_chromo[i],prob_muta, [-5.12,5.12], 1)
     return new_chromo
@@ -128,6 +131,24 @@ def muta_reals_gene(gene, prob_muta, domain_gene, sigma_gene):
         elif new_gene > domain_gene[1]:
             new_gene = domain_gene[1]
     return new_gene
+
+
+# -------------------------- Selection of Parents
+def tournament_sel(population, numb,t_size):
+    mate_pool=[]
+    for i in range(numb):
+        indiv = tournament(population,t_size)
+        mate_pool.append(indiv)
+    return mate_pool
+
+def tournament(population,t_size):
+    """Deterministic. Minimization"""
+    #print(population)
+    #print(t_size)
+
+    pool = random.sample(population, t_size)
+    pool.sort(key=itemgetter(1), reverse=True)
+    return pool[0]
 
 # ----------------------------------- Selection of Survivors
 def survivors_generational(parents,offspring):
@@ -145,8 +166,21 @@ def best_pop(population):
     population.sort(key=itemgetter(1))
     return population[0]
 
-def fitness_func():
-    pass
+def knapsack_fitness(pop):
+    maxSize = 100
+    #sizes = array([193.71,60.15,89.08,88.98,15.39,238.14,68.78,107.47,119.66,183.70])
+    #sizes = array([109.60,125.48,52.16,195.55,58.67,61.87,92.95,93.14,155.05,110.89,13.34,132.49,194.03,121.29,179.33,139.02,198.78,192.57,81.66,128.90])
+    sizes =[i for i in range(size)]
+
+    #print("pop")
+    #print(pop)
+
+    fitness = sum([sizes[i] for i in range(len(sizes)) if pop[i] == 1])
+    #fitness = where( fitness > maxSize, maxSize - 2 * (fitness - maxSize), fitness)
+
+    # print(fitness)
+
+    return fitness
 
 """
     Fazer 30 runs, medir o desempenho com:
@@ -162,24 +196,28 @@ if __name__ == '__main__':
     size = 10
     sequencia =[i for i in range(size)]
 
-    numb_runs          = 30
-    filename          = 'out/' + str(int(time.time())) + '.csv'
-    pop_size           = 150
-    cromo_size         = 10
-    # fitness_func       = rastrigin
-    prob_cross         = 0.8
-    prob_muta          = 0.01
-    # select_parents     = tournament_sel
-    muta_method        = muta_reals_rastrigin
-    cross_method       = one_point_cross, uniform_cross
-    select_survivors   = survivors_steady_state
-    max_gener          = 500
-
-    run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
-
     # 1º TESTE FIXO
     # cruzamento = 0.9
     # mutacao = 0.1
+
+    numb_runs          = 10
+    filename          = 'cenas.csv'
+    pop_size           = 10
+    # pop_size           = 150
+    cromo_size         = 10
+    # cromo_size         = 10
+    fitness_func       = knapsack_fitness
+    prob_cross         = 0.9
+    prob_muta          = 0.1
+    select_parents     = tournament_sel
+    muta_method        = muta_reals_rastrigin
+    cross_method       = one_point_cross, uniform_cross
+    select_survivors   = survivors_steady_state
+    max_gener          = 100
+    # max_gener          = 500
+
+    run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
+
 
     # 2º TESTE PROBABILIDADE INICIAL E FINAL
     # cruzamento = 0.8 durante 70% das gerações, 0 nas seguintes
