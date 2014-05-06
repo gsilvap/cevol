@@ -4,8 +4,8 @@ README.md
 
 must: create a folder named out:
 
-  mkdir out
+    mkdir out
 
 run pcarmona
 
-  python pcarmona.py
+    python pcarmona.py
