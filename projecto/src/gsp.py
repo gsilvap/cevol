@@ -2,6 +2,17 @@ __author__ = 'GonçaloSilva'
 
 # Algoritmo genetico
 
+import random
+
+def init_pop(pop_size, cromo_size):
+    """Return a list of individuals, where each indicidual has the forma [chromo, 0]"""
+    population = [[cromo_reals(cromo_size),0] for count in range(pop_size)]
+    return population
+
+def cromo_reals(size):
+    cromo =[random.choice([0,1]) for i in range(size)]
+    return cromo
+
 def mutacao():
     pass
 
@@ -23,6 +34,9 @@ def recombinacao():
 # varicao das probabilidades de mutacao e recombinação
 # mutação no inicio e recombinação no fim ?
 if __name__ == '__main__':
+    size = 10
+    sequencia =[i for i in range(size)]
+
     # 1º TESTE FIXO
     # cruzamento = 0.9
     # mutacao = 0.1
