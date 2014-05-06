@@ -43,6 +43,7 @@ if __name__ == '__main__':
     # quatro pares de valores
     # definir como é feita a variação
 
+
     file_name = 'out/'
     file_name =file_name + str(int(time.time()))
     file_name = file_name + '.csv'
