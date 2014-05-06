@@ -43,8 +43,8 @@ def show(filename):
 def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
     pop_size = len(initial_pop)
     population = eval_pop(initial_pop, fitness_func)
-    for i in range(len(population)):
-                print(population[i])
+    # for i in range(len(population)):
+    #             print(population[i])
     for gener in range(max_gener):
         mates = select_parents(population,pop_size,3)
         offspring = crossover(mates, prob_cross, cross_method)
