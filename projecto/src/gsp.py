@@ -2,6 +2,7 @@ from sqlalchemy.sql.sqltypes import _DateAffinity
 
 __author__ = 'GonçaloSilva'
 
+import time
 import copy
 import random
 from operator import itemgetter
@@ -60,8 +61,7 @@ def cromo_reals(size):
     return cromo
 
 def eval_pop(population,fitness_function):
-    #return [[indiv[0], fitness_function(indiv[0])] for indiv in population]
-    pass
+    return [[indiv[0], fitness_function(indiv[0])] for indiv in population]
 
 # ---------------------------------- Genetic Operators
 # ------------- Crossover
@@ -145,6 +145,9 @@ def best_pop(population):
     population.sort(key=itemgetter(1))
     return population[0]
 
+def fitness_func():
+    pass
+
 """
     Fazer 30 runs, medir o desempenho com:
     - qualidade do algoritmo
@@ -153,16 +156,14 @@ def best_pop(population):
     Analise estatistica dos resultados e tirar conclusões
 """
 
-
 # varicao das probabilidades de mutacao e recombinação
 # mutação no inicio e recombinação no fim ?
 if __name__ == '__main__':
     size = 10
     sequencia =[i for i in range(size)]
 
-
     numb_runs          = 30
-    # filename           = filename
+    filename          = 'out/' + str(int(time.time())) + '.csv'
     pop_size           = 150
     cromo_size         = 10
     # fitness_func       = rastrigin
@@ -189,5 +190,3 @@ if __name__ == '__main__':
     # mutacao     a descer de 0.01, 0.05, 0.1, 0.2
     # quatro pares de valores
     # definir como é feita a variação
-
-    pass
