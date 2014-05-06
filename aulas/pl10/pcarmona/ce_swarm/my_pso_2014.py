@@ -9,7 +9,7 @@ Ernesto Costa, April 2014.
 
 # imports
 from pylab import *
-from random import uniform
+from random import uniform, random
 from copy import deepcopy
 from math import sqrt,sin,cos,pi
 from operator import itemgetter
@@ -223,9 +223,98 @@ def rastringin_nd(indiv):
     domain = [[-5.12,5.12] for i in range(n)]
     new_indiv = clamping(indiv,domain)
     f = n * 10.0 + sum([(x**2 - 10.0 * cos(2*pi*x)) for x in new_indiv])
-    return f 	
+    return f
+
+
+# -------------------- Interface --------------------
+
+# Cities,their coordinates, kept in a file of type tsp
+
+def get_coordinates_tsp(filename):
+    """ Obtain the cities' coordinates from a file in tsp format."""
+    file_in = open(filename)
+    data = file_in.readlines()
+    coordinates = []
+    for line in data[7:-1]:
+        n,x,y = line[:-1].split()
+        coordinates.append((float(x),float(y)))
+    file_in.close()
+    return coordinates
+
+def dict_cities(coordinates):
+    """ Create a dictionsary. Key = city identifier, value = coordinates."""
+    my_dict = {}
+    for i, (x,y) in enumerate(coordinates):
+        my_dict[i] = (x,y)
+    return my_dict
+
+#  Fitness calculation
+def phenotype(genotype,dict_cities):
+    """ Obtaing the phenotype = list of coordinates."""
+    pheno = [dict_cities[city] for city in genotype]
+    return pheno
+
+
+def distance(cid_i, cid_j):
+    """ Euclidian distance."""
+    x_i, y_i = cid_i
+    x_j, y_j = cid_j
+    dx = x_i - x_j
+    dy = y_i - y_j
+    dist = sqrt(dx**2 + dy**2)
+    return dist
+
+def evaluate(tour):
+    numb_cities = len(tour)
+    dist = 0
+    for i in range(numb_cities):
+        j = (i+1) % numb_cities
+        dist  += distance(tour[i],tour[j])
+    return dist
+
+#um individuo é um conjunto de permutacoes
+#geramos um individuo com random keys
+def tsp_ncities(indiv):
+    n = len(indiv)
+    # keep values inside the domain
+    domain = [[0,1] for i in range(n)]
+    new_indiv = clamping(indiv,domain)
+    permutation = decode_rk(indiv)
+    print (permutation)
+    f = phenotype(permutation,cities)
+    return f
+
+def decode_rk(vector):
+    aux = deepcopy(vector)
+    aux.sort()
+    permutation = [vector.index(elem)+1 for elem in aux]
+    return permutation
+
+def generate_vector(size):
+    return [random() for count in range(size)]
+
+
+def main(filename):
+    coordinates = get_coordinates_tsp(filename)
+    global cities
+    cities = dict_cities(coordinates)
+    numb_iter = 50
+    numb_ants = len(cities)
+    #numb_ants = 50
+    domain = [(0,1) for i in range(len(cities))]
+    print (domain)
+    print (cities[20])
+    run(5,50,50,0.7,1.3,2.7,0.8,domain,tsp_ncities,min)
+
 
 
 if __name__== '__main__':
+
+    main('Berlin52.tsp')
+
     #run(10,100,30,1,2,2,0.8,[[-2.048,2.048],[-2.048,2.048]],de_jong_f2_2d,min)
-    run(5,50,50,0.7,1.3,2.7,0.8,[(-5.12,5.12),(-5.12,5.12),(-5.12,5.12)],rastringin_nd,min)
+    #run(5,50,50,0.7,1.3,2.7,0.8,[(-5.12,5.12),(-5.12,5.12),(-5.12,5.12)],rastringin_nd,min)
+
+
+    #Nao ha relacao entre floats e inteiros. random entre 0-1 e transforma
+
