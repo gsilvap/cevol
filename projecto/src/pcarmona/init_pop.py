@@ -1,5 +1,9 @@
 import random
 
+def cromo_bin(size):
+  indiv = [random.randint(0,1) for i in range(size)]
+  return indiv
+
 def cromo_int(size):
   indiv = list(range(1,size + 1))
   random.shuffle(indiv)
@@ -11,4 +15,4 @@ def init_pop(pop_size, cromo_size, func):
   return population
 
 if __name__ == '__main__':
-  print(init_pop(10,5,cromo_int))
+  print(init_pop(10,5,cromo_bin))

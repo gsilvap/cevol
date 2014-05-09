@@ -10,6 +10,7 @@ import time
 from pcarmona.sum_sub_int_see import *
 from pcarmona.init_pop import *
 
+from pcarmona.knapsack import *
 # Algoritmo genetico
 
 def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
@@ -56,11 +57,9 @@ def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_me
     return best_individual
 
 
-quanto menor tamnho do array melhor
-
-soma igual a x?
-
-soma dos elementos todos da solucao e a aproximacao a x
+#quanto menor tamnho do array melhor
+#soma igual a x?
+#soma dos elementos todos da solucao e a aproximacao a x
 
 
 def mutacao():
