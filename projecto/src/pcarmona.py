@@ -7,10 +7,13 @@ __author__ = 'PedroCarmona'
 #imports
 
 import time
-from pcarmona.sum_sub_int_see import *
+#from pcarmona.sum_sub_int_see import *
 from pcarmona.init_pop import *
 from pcarmona.utilities import *
 from pcarmona.fitness import *
+from pcarmona.parent_selection import *
+from pcarmona.crossover import *
+
 # Algoritmo genetico
 
 def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
