@@ -10,7 +10,7 @@ import time
 from pcarmona.sum_sub_int_see import *
 from pcarmona.init_pop import *
 
-from pcarmona.knapsack import *
+from pcarmona.fitness import *
 # Algoritmo genetico
 
 def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
@@ -97,10 +97,25 @@ if __name__ == '__main__':
     # quatro pares de valores
     # definir como é feita a variação
 
+    numb_runs          = 10
 
     file_name = 'out/'
     file_name =file_name + str(int(time.time()))
     file_name = file_name + '.csv'
-    run_parents_selection(30,file_name, 150, 10, rastrigin, 0.8, 0.01,tournament_sel, muta_reals_rastrigin, [one_point_cross,uniform_cross], survivors_steady_state, 500)
+
+    pop_size           = 10
+    # pop_size           = 150
+    cromo_size         = 10
+    # cromo_size         = 10
+    fitness_func       = knapsack_fitness
+    prob_cross         = 0.8
+    prob_muta          = 0.01
+    select_parents     = tournament_sel
+    muta_method        = muta_reals_rastrigin
+    cross_method       = one_point_cross, uniform_cross
+    select_survivors   = survivors_steady_state
+    max_gener          = 100
+
+    run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
 
     pass
