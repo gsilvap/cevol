@@ -7,12 +7,12 @@ __author__ = 'PedroCarmona'
 #imports
 
 import time
-#from pcarmona.sum_sub_int_see import *
-from pcarmona.init_pop import *
-from pcarmona.utilities import *
-from pcarmona.fitness import *
-from pcarmona.parent_selection import *
-from pcarmona.crossover import *
+from genetic_algorithm.init_pop import *
+from genetic_algorithm.utilities import *
+from genetic_algorithm.fitness import *
+from genetic_algorithm.parent_selection import *
+from genetic_algorithm.crossover import *
+from genetic_algorithm.mutation import *
 
 # Algoritmo genetico
 
@@ -58,21 +58,6 @@ def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_me
         population = select_survivors(population, offspring)
     best_individual = best_pop(population)
     return best_individual
-
-
-
-#quanto menor tamnho do array melhor
-#soma igual a x?
-#soma dos elementos todos da solucao e a aproximacao a x
-
-
-def mutacao():
-    pass
-
-
-def recombinacao():
-    pass
-
 
 
 """
