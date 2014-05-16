@@ -9,7 +9,7 @@ __author__ = 'PedroCarmona'
 import time
 from pcarmona.sum_sub_int_see import *
 from pcarmona.init_pop import *
-
+from pcarmona.utilities import *
 from pcarmona.fitness import *
 # Algoritmo genetico
 
@@ -83,6 +83,8 @@ def recombinacao():
 # varicao das probabilidades de mutacao e recombinação
 # mutação no inicio e recombinação no fim ?
 if __name__ == '__main__':
+    init_project()
+
     # 1º TESTE FIXO
     # cruzamento = 0.9
     # mutacao = 0.1
@@ -99,9 +101,7 @@ if __name__ == '__main__':
 
     numb_runs          = 10
 
-    file_name = 'out/'
-    file_name =file_name + str(int(time.time()))
-    file_name = file_name + '.csv'
+    file_name = 'out/'+  timestamp + '.csv'
 
     pop_size           = 10
     # pop_size           = 150

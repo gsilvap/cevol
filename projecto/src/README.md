@@ -1,10 +1,6 @@
-README.md
+#Instrutions to run programs:
 
-#pcarmona
-
-must: create a folder named out:
-
-    mkdir out
+###pcarmona
 
 run pcarmona
 
