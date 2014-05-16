@@ -29,13 +29,14 @@ def sub_fitness(pop):
   fitness = sum(sizes*pop,axis=0)
   fitness = where(fitness>maxSize,20-2*(fitness-maxSize),fitness)
 
-  fitness = len(sizes) - sum(pop)
+  the_more_elements_in_less_its_fitness = - (sum(pop))
+
+  fitness = fitness + the_more_elements_in_less_its_fitness
 
   return fitness
 
 if __name__ == '__main__':
-  a = array([1,1,1,1,1,0])
-
+  a = array([1,1,0s,0,1,1])
   print(sub_fitness(a))
 
   #print(sub_fitness([0,0,0,0,0,0]))
