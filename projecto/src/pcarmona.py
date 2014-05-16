@@ -107,7 +107,7 @@ if __name__ == '__main__':
     # pop_size           = 150
     cromo_size         = 10
     # cromo_size         = 10
-    fitness_func       = knapsack_fitness
+    fitness_func       = subset_fitness
     prob_cross         = 0.8
     prob_muta          = 0.01
     select_parents     = tournament_sel

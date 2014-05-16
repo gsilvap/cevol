@@ -21,6 +21,16 @@ def knapsack_simple_fitness(individual, pesos, valores, capacidade):
     return fitness if peso<capacidade else 0
 
 def subset_fitness(indiv, population, max_size):
+  """these method receives an indiv and calculates is fitness.
+  Indiv must be an array, with indiv[0] being its fenotype, and indiv[1] its current fitness
+  firstly:
+  - is calculated the size the indiv has,
+  if its size is bigger than the max_size allowed,
+  the for each 1 of size diference is decremented 2 to his fitness
+  then
+  - the more elements the indiv has, the less score he has,
+  because he want individuals with minimization of cardinality
+  """
 
   fitness = sum(population*indiv[0],axis=0)
   fitness = where(fitness>max_size,max_size-2*(fitness-max_size),fitness)
