@@ -36,7 +36,7 @@ def sub_fitness(pop):
   return fitness
 
 if __name__ == '__main__':
-  a = array([1,1,0s,0,1,1])
+  a = array([1,1,0,0,1,1])
   print(sub_fitness(a))
 
   #print(sub_fitness([0,0,0,0,0,0]))
