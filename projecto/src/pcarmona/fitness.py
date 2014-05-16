@@ -20,7 +20,7 @@ def knapsack_simple_fitness(individual, pesos, valores, capacidade):
             peso += pesos[i]
     return fitness if peso<capacidade else 0
 
-def subset_fitness(indiv, population, max_size):
+def subset_fitness(indiv, sizes, max_size):
   """these method receives an indiv and calculates is fitness.
   Indiv must be an array, with indiv[0] being its fenotype, and indiv[1] its current fitness
   firstly:
@@ -32,7 +32,7 @@ def subset_fitness(indiv, population, max_size):
   because he want individuals with minimization of cardinality
   """
 
-  fitness = sum(population*indiv[0],axis=0)
+  fitness = sum(sizes*indiv[0],axis=0)
   fitness = where(fitness>max_size,max_size-2*(fitness-max_size),fitness)
 
   the_more_elements_in_less_its_fitness = - (sum(indiv[0]))
@@ -41,21 +41,21 @@ def subset_fitness(indiv, population, max_size):
 
   return fitness
 
-def update_fitness(indiv, population, max_size, fitness_func):
-  indiv[1] = fitness_func(indiv, population, max_size)
+def update_fitness(indiv, sizes, max_size, fitness_func):
+  indiv[1] = fitness_func(indiv, sizes, max_size)
 
 
 if __name__ == '__main__':
   #from professor example
-  population = array([5, 8, 4, 11, 6, 12])
+  sizes = array([5, 8, 4, 11, 6, 12])
   max_size = 20
   # {8, 12}
   indiv1 = [array([0,1,0,0,0,1]),0]
   # {4, 5, 11}
   indiv2 = [array([1,0,1,1,0,0]),0]
   fitness_func = subset_fitness
-  update_fitness(indiv1, population, max_size, fitness_func)
-  update_fitness(indiv2, population, max_size, fitness_func)
+  update_fitness(indiv1, sizes, max_size, fitness_func)
+  update_fitness(indiv2, sizes, max_size, fitness_func)
 
   print(indiv1)
   print(indiv2)
