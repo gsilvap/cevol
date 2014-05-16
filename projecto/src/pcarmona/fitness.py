@@ -20,85 +20,34 @@ def knapsack_simple_fitness(individual, pesos, valores, capacidade):
             peso += pesos[i]
     return fitness if peso<capacidade else 0
 
-def sub_fitness(pop):
-  maxSize = 20
+def subset_fitness(indiv, population, max_size):
 
-  #sizes = array([5, 8, 4, 11, 6, 12])
-  sizes = array([1, 2, 3, 4, 5, 6])
+  fitness = sum(population*indiv[0],axis=0)
+  fitness = where(fitness>max_size,max_size-2*(fitness-max_size),fitness)
 
-  fitness = sum(sizes*pop,axis=0)
-  fitness = where(fitness>maxSize,20-2*(fitness-maxSize),fitness)
-
-  the_more_elements_in_less_its_fitness = - (sum(pop))
+  the_more_elements_in_less_its_fitness = - (sum(indiv[0]))
 
   fitness = fitness + the_more_elements_in_less_its_fitness
 
   return fitness
 
-if __name__ == '__main__':
-  a = array([1,1,0,0,1,1])
-  print(sub_fitness(a))
+def update_fitness(indiv, population, max_size, fitness_func):
+  indiv[1] = fitness_func(indiv, population, max_size)
 
-  #print(sub_fitness([0,0,0,0,0,0]))
-  #print(sub_fitness([0,0,0,0,0,1]))
-  #print(sub_fitness([0,0,0,0,1,0]))
-  #print(sub_fitness([0,0,0,0,1,1]))
-  #print(sub_fitness([0,0,0,1,0,0]))
-  #print(sub_fitness([0,0,0,1,0,1]))
-  #print(sub_fitness([0,0,0,1,1,0]))
-  #print(sub_fitness([0,0,0,1,1,1]))
-  #print(sub_fitness([0,0,1,0,0,0]))
-  #print(sub_fitness([0,0,1,0,0,1]))
-  #print(sub_fitness([0,0,1,0,1,0]))
-  #print(sub_fitness([0,0,1,0,1,1]))
-  #print(sub_fitness([0,0,1,1,0,0]))
-  #print(sub_fitness([0,0,1,1,0,1]))
-  #print(sub_fitness([0,0,1,1,1,0]))
-  #print(sub_fitness([0,0,1,1,1,1]))
-  #print(sub_fitness([0,1,0,0,0,0]))
-  #print(sub_fitness([0,1,0,0,0,1]))
-  #print(sub_fitness([0,1,0,0,1,0]))
-  #print(sub_fitness([0,1,0,0,1,1]))
-  #print(sub_fitness([0,1,0,1,0,0]))
-  #print(sub_fitness([0,1,0,1,0,1]))
-  #print(sub_fitness([0,1,0,1,1,0]))
-  #print(sub_fitness([0,1,0,1,1,1]))
-  #print(sub_fitness([0,1,1,0,0,0]))
-  #print(sub_fitness([0,1,1,0,0,1]))
-  #print(sub_fitness([0,1,1,0,1,0]))
-  #print(sub_fitness([0,1,1,0,1,1]))
-  #print(sub_fitness([0,1,1,1,0,0]))
-  #print(sub_fitness([0,1,1,1,0,1]))
-  #print(sub_fitness([0,1,1,1,1,0]))
-  #print(sub_fitness([0,1,1,1,1,1]))
-  #print(sub_fitness([1,0,0,0,0,0]))
-  #print(sub_fitness([1,0,0,0,0,1]))
-  #print(sub_fitness([1,0,0,0,1,0]))
-  #print(sub_fitness([1,0,0,0,1,1]))
-  #print(sub_fitness([1,0,0,1,0,0]))
-  #print(sub_fitness([1,0,0,1,0,1]))
-  #print(sub_fitness([1,0,0,1,1,0]))
-  #print(sub_fitness([1,0,0,1,1,1]))
-  #print(sub_fitness([1,0,1,0,0,0]))
-  #print(sub_fitness([1,0,1,0,0,1]))
-  #print(sub_fitness([1,0,1,0,1,0]))
-  #print(sub_fitness([1,0,1,0,1,1]))
-  #print(sub_fitness([1,0,1,1,0,0]))
-  #print(sub_fitness([1,0,1,1,0,1]))
-  #print(sub_fitness([1,0,1,1,1,0]))
-  #print(sub_fitness([1,0,1,1,1,1]))
-  #print(sub_fitness([1,1,0,0,0,0]))
-  #print(sub_fitness([1,1,0,0,0,1]))
-  #print(sub_fitness([1,1,0,0,1,0]))
-  #print(sub_fitness([1,1,0,0,1,1]))
-  #print(sub_fitness([1,1,0,1,0,0]))
-  #print(sub_fitness([1,1,0,1,0,1]))
-  #print(sub_fitness([1,1,0,1,1,0]))
-  #print(sub_fitness([1,1,0,1,1,1]))
-  #print(sub_fitness([1,1,1,0,0,0]))
-  #print(sub_fitness([1,1,1,0,0,1]))
-  #print(sub_fitness([1,1,1,0,1,0]))
-  #print(sub_fitness([1,1,1,0,1,1]))
-  #print(sub_fitness([1,1,1,1,0,0]))
-  #print(sub_fitness([1,1,1,1,0,1]))
-  #print(sub_fitness([1,1,1,1,1,0]))
+
+if __name__ == '__main__':
+  #from professor example
+  population = array([5, 8, 4, 11, 6, 12])
+  max_size = 20
+  # {8, 12}
+  indiv1 = [array([0,1,0,0,0,1]),0]
+  # {4, 5, 11}
+  indiv2 = [array([1,0,1,1,0,0]),0]
+  fitness_func = subset_fitness
+  update_fitness(indiv1, population, max_size, fitness_func)
+  update_fitness(indiv2, population, max_size, fitness_func)
+
+  print(indiv1)
+  print(indiv2)
+
+
