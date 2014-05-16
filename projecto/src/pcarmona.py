@@ -13,14 +13,14 @@ from pcarmona.utilities import *
 from pcarmona.fitness import *
 # Algoritmo genetico
 
-def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
+def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
     with open(filename,'w') as f_data:
         f_data.write('one_point_cross, uniform_cross\n')
         for i in range(numb_runs):
             print('RUN...%s' % (i+1))
-            initial_pop = init_pop(pop_size, cromo_size, cromo_int)
-            best_1 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[0], select_survivors, max_gener)
-            best_2 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[1], select_survivors, max_gener)
+            initial_pop = init_pop(pop_size, cromo_size, cromo_bin)
+            best_1 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[0], select_survivors, max_gener, sizes)
+            best_2 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[1], select_survivors, max_gener, sizes)
             f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1] + '\n')
         f_data.close()
         show(filename)
@@ -44,17 +44,18 @@ def show(filename):
         plt.show()
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
-def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener):
+def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
     pop_size = len(initial_pop)
-    population = eval_pop(initial_pop, fitness_func)
+    population = eval_pop(initial_pop, fitness_func, sizes, max_size)
     for gener in range(max_gener):
         mates = select_parents(population,pop_size,3)
         offspring = crossover(mates, prob_cross, cross_method)
         offspring = mutation(offspring, prob_muta,muta_method)
-        offspring = eval_pop(offspring,fitness_func)
+        offspring = eval_pop(offspring,fitness_func, sizes, max_size)
         population = select_survivors(population, offspring)
     best_individual = best_pop(population)
     return best_individual
+
 
 
 #quanto menor tamnho do array melhor
@@ -99,13 +100,18 @@ if __name__ == '__main__':
     # quatro pares de valores
     # definir como é feita a variação
 
+    """
+        problem: sum subset of integers
+    """
+
+    sizes              = array([5, 8, 4, 11, 6, 12])
+    max_size           = 20
+
     numb_runs          = 10
-
     file_name = 'out/'+  timestamp + '.csv'
-
     pop_size           = 10
     # pop_size           = 150
-    cromo_size         = 10
+    cromo_size         = len(sizes)
     # cromo_size         = 10
     fitness_func       = subset_fitness
     prob_cross         = 0.8
