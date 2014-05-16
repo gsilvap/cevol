@@ -1,12 +1,12 @@
 
 # mutation
-
+from copy import deepcopy
+from numpy import *
 import random
-import copy
 
 #---------------- Mutation
 def mutation(population, prob_muta, method):
-    new_population = copy.deepcopy(population)
+    new_population = deepcopy(population)
     offspring = []
     for i in range(len(population)):
         off = method(new_population[i][0],prob_muta)
@@ -17,7 +17,7 @@ def mutation(population, prob_muta, method):
 
 # genérica
 def muta_bin(indiv,prob_muta, muta_func):
-  cromo = copy.deepcopy(indiv)
+  cromo = deepcopy(indiv)
   for i in range(len(indiv)):
     cromo[i] = muta_func(cromo[i],prob_muta)
   return cromo
@@ -37,7 +37,7 @@ def muta_bin_gene(gene, prob_muta):
 # permutations
 
 def muta_perm_swap(indiv, prob_muta):
-  cromo = copy.deepcopy(indiv)
+  cromo = deepcopy(indiv)
   value = random.random()
   if value < prob_muta:
     index = random.sample(range(len(cromo)),2)
@@ -47,7 +47,7 @@ def muta_perm_swap(indiv, prob_muta):
   return cromo
 
 def muta_perm_scramble(indiv,prob_muta):
-  cromo = copy.deepcopy(indiv)
+  cromo = deepcopy(indiv)
   value = random.random()
   if value < prob_muta:
     index = random.sample(range(len(cromo)),2)
@@ -60,7 +60,7 @@ def muta_perm_scramble(indiv,prob_muta):
 
 
 def muta_perm_inversion(indiv,prob_muta):
-  cromo = copy.deepcopy(indiv)
+  cromo = deepcopy(indiv)
   value = random.random()
   if value < prob_muta:
     index = random.sample(range(len(cromo)),2)
@@ -73,7 +73,7 @@ def muta_perm_inversion(indiv,prob_muta):
   return cromo
 
 def muta_perm_insertion(indiv, prob_muta):
-  cromo = copy.deepcopy(indiv)
+  cromo = deepcopy(indiv)
   value = random.random()
   if value < prob_muta:
     index = random.sample(range(len(cromo)),2)
@@ -89,11 +89,35 @@ def muta_perm_insertion(indiv, prob_muta):
 
 
 if __name__ == '__main__':
-    c1 = cromo_bin(10)
-    print(c1)
-    print(muta_bin(c1,1.0, muta_bin_gene))
-    c2 = cromo_int(10)
-    print(c2)
-    print(muta_perm_insertion(c2,1.0))
+  import init_pop
+  import fitness
+  import parent_selection
+
+  sizes              = array([5, 8, 4, 11, 6, 12])
+  max_size           = 20
+  pop_size           = 10
+  cromo_size         = len(sizes)
+  fitness_func       = fitness.subset_fitness
+  select_parents     = parent_selection.tournament_sel
+
+  initial_pop = init_pop.init_pop(pop_size, cromo_size, init_pop.cromo_bin)
+  population = fitness.eval_pop(initial_pop, fitness_func, sizes, max_size)
+
+  c1 = population[0][0]
+  print("############# muta_bin")
+  print(c1)
+  print(muta_bin(c1,1.0, muta_bin_gene))
+  print("############# muta_perm_swap")
+  print(c1)
+  print(muta_perm_swap(c1,1.0))
+  print("############# muta_perm_scramble")
+  print(c1)
+  print(muta_perm_scramble(c1,1.0))
+  print("############# muta_perm_inversion")
+  print(c1)
+  print(muta_perm_inversion(c1,1.0))
+  print("############# muta_perm_insertion")
+  print(c1)
+  print(muta_perm_insertion(c1,1.0))
 
 
