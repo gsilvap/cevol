@@ -11,7 +11,7 @@ def tournament_sel(population, numb,t_size):
     return mate_pool
 
 def tournament(population,t_size):
-    """Deterministic. Minimization"""
+    """Deterministic. Maximization"""
     #print(population)
     #print(t_size)
 
