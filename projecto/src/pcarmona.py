@@ -13,6 +13,7 @@ from genetic_algorithm.fitness import *
 from genetic_algorithm.parent_selection import *
 from genetic_algorithm.crossover import *
 from genetic_algorithm.mutation import *
+from genetic_algorithm.survivors import *
 
 # Algoritmo genetico
 
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     max_size           = 20
 
     numb_runs          = 10
-    file_name = 'out/'+  timestamp + '.csv'
+    file_name = 'out/'+  timestamp() + '.csv'
     pop_size           = 10
     # pop_size           = 150
     cromo_size         = len(sizes)
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     prob_cross         = 0.8
     prob_muta          = 0.01
     select_parents     = tournament_sel
-    muta_method        = muta_reals_rastrigin
+    muta_method        = muta_bin
     cross_method       = one_point_cross, uniform_cross
     select_survivors   = survivors_steady_state
     max_gener          = 100

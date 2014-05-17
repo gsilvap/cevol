@@ -16,10 +16,10 @@ def mutation(population, prob_muta, method):
 
 
 # genérica
-def muta_bin(indiv,prob_muta, muta_func):
+def muta_bin(indiv,prob_muta):
   cromo = deepcopy(indiv)
   for i in range(len(indiv)):
-    cromo[i] = muta_func(cromo[i],prob_muta)
+    cromo[i] = muta_bin_gene(cromo[i],prob_muta)
   return cromo
 
 # binário
@@ -106,7 +106,7 @@ if __name__ == '__main__':
   c1 = population[0][0]
   print("############# muta_bin")
   print(c1)
-  print(muta_bin(c1,1.0, muta_bin_gene))
+  print(muta_bin(c1,1.0))
   print("############# muta_perm_swap")
   print(c1)
   print(muta_perm_swap(c1,1.0))

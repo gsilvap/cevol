@@ -13,10 +13,9 @@ run pcarmona
 
 - Add more methods to crossover (recombinacao)
 
-- selection of survivors - review professor code
-
 - finish the main code
 
+- make inputs
 
 
 ### apontamentos da aula pl6:
