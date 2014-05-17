@@ -111,6 +111,6 @@ if __name__ == '__main__':
     select_survivors   = survivors_steady_state
     max_gener          = 100
 
-    run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
+    run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
 
     pass
