@@ -5,8 +5,6 @@ __author__ = 'PedroCarmona'
 
 
 #imports
-
-import time
 from genetic_algorithm.init_pop import *
 from genetic_algorithm.utilities import *
 from genetic_algorithm.fitness import *
@@ -23,29 +21,12 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
         for i in range(numb_runs):
             print('RUN...%s' % (i+1))
             initial_pop = init_pop(pop_size, cromo_size, cromo_bin)
-            best_1 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[0], select_survivors, max_gener, sizes)
-            best_2 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[1], select_survivors, max_gener, sizes)
+            best_1 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[0], select_survivors, max_gener, sizes, max_size)
+            best_2 = sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method[1], select_survivors, max_gener, sizes, max_size)
             f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1] + '\n')
         f_data.close()
         show(filename)
 
-# show results
-def show(filename):
-    with open(filename,'r') as f_data:
-        data_1 = []
-        data_2 = []
-        for line in f_data:
-            data = line[:-1].split(', ')
-            data_1.append(str(data[0]))
-            data_2.append(str(data[1]))
-        plt.grid(True)
-        plt.title('Rastrigin')
-        plt.xlabel('Run')
-        plt.ylabel('Best')
-        plt.plot(data_1, label='One-point')
-        plt.plot(data_2,label='Uniform')
-        plt.legend(loc='upper left')
-        plt.show()
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
@@ -111,6 +92,6 @@ if __name__ == '__main__':
     select_survivors   = survivors_steady_state
     max_gener          = 100
 
-    run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener)
+    run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
 
     pass

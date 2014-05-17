@@ -3,6 +3,7 @@ import datetime
 import os
 import errno
 import sys
+import matplotlib.pyplot as plt
 
 
 
@@ -20,6 +21,27 @@ def init_project():
     print ("initializing project...")
     os.makedirs("out")
 
+# show results
+def show(filename):
+  with open(filename,'r') as f_data:
+    data_1 = []
+    data_2 = []
+    for line in f_data:
+      data = line[:-1].split(', ')
+      data_1.append(str(data[0]))
+      data_2.append(str(data[1]))
+
+    plt.grid(True)
+    plt.title('Sum SubSet')
+    plt.xlabel('Run')
+    plt.ylabel('Best')
+    plt.plot(data_1[1:], label=data_1[0])
+    plt.plot(data_2[1:],label=data_2[0])
+    plt.legend(loc='upper left')
+    plt.show()
+
+
 if __name__ == '__main__':
   init_project()
   print(timestamp())
+
