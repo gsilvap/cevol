@@ -15,6 +15,7 @@ from genetic_algorithm.survivors import *
 
 # Algoritmo genetico
 
+
 def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
     with open(filename,'w') as f_data:
         f_data.write('one_point_cross, uniform_cross\n')
@@ -27,6 +28,41 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
         f_data.close()
         show(filename)
 
+
+def sea_first(initial_pop, fitness_func,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+
+    pop_size = len(initial_pop)
+    population = eval_pop(initial_pop, fitness_func, sizes, max_size)
+    prob_cross         = 0.8
+    prob_muta          = 0.01
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    best_individual = best_pop(population)
+    return best_individual
+
+def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    pop_size = len(initial_pop)
+    population = eval_pop(initial_pop, fitness_func, sizes, max_size)
+
+    prob_cross         = 0.8
+    prob_muta          = 0
+    max_gener_70       = max_gener*0.7
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+
+    prob_cross         = 0
+    prob_muta          = 0.05
+    max_gener_30       = max_gener*0.3
+
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    best_individual = best_pop(population)
+    return best_individual
+
+def generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    for gener in range(max_gener):
+        mates = select_parents(population,pop_size,3)
+        offspring = crossover(mates, prob_cross, cross_method)
+        offspring = mutation(offspring, prob_muta,muta_method)
+        offspring = eval_pop(offspring,fitness_func, sizes, max_size)
+        population = select_survivors(population, offspring)
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
