@@ -131,7 +131,7 @@ if __name__ == '__main__':
     sizes              = array([5, 8, 4, 11, 6, 12])
     max_size           = 20
 
-    numb_runs          = 10
+    numb_runs          = 30
     file_name = 'out/'+  timestamp() + '.csv'
     pop_size           = 10
     # pop_size           = 150
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     cross_method       = uniform_cross
     select_survivors   = survivors_steady_state
-    max_gener          =500
+    max_gener          = 100
 
     run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
 
