@@ -33,13 +33,12 @@ def subset_fitness(indiv, sizes, max_size):
   - the more elements the indiv has, the less score he has,
   because he want individuals with minimization of cardinality
   """
+  alfa=1
+  beta=2
   fitness = sum(sizes*indiv,axis=0)
-  fitness = where(fitness>max_size,max_size-2*(fitness-max_size),fitness)
-
-  the_more_elements_in_less_its_fitness = - (sum(indiv))
-
+  fitness = where( fitness > max_size, max_size - alfa * (fitness - max_size), fitness)
+  the_more_elements_in_less_its_fitness = - beta * (sum( indiv ))
   fitness = fitness + the_more_elements_in_less_its_fitness
-
   return fitness
 
 
@@ -48,27 +47,31 @@ def eval_pop(population,fitness_function, sizes, max_size):
 
 if __name__ == '__main__':
   #from professor example
-  #sizes = array([5, 8, 4, 11, 6, 12])
-  #max_size = 20
-  ## {8, 12}
-  #indiv1 = [array([0,1,0,0,0,1]),0]
-  ## {4, 5, 11}
-  #indiv2 = [array([1,0,1,1,0,0]),0]
-  #fitness_func = subset_fitness
-  #print(indiv1)
-  #print(indiv2)
-  import init_pop
+  sizes = array([5, 8, 4, 11, 6, 12])
+  max_size = 20
+  # {8, 12}
+  indiv1 = [array([0,1,0,0,0,1]),0]
+  # {4, 5, 11}
+  indiv2 = [array([1,0,1,1,0,0]),0]
+  # {8,11}
+  indiv3 = [array([0,1,0,1,0,0]),0]
+  indiv1[1]= subset_fitness(indiv1[0], sizes, max_size)
+  indiv2[1]= subset_fitness(indiv2[0], sizes, max_size)
+  indiv3[1]= subset_fitness(indiv3[0], sizes, max_size)
+  print(indiv1)
+  print(indiv2)
+  print(indiv3)
 
-  sizes              = array([5, 8, 4, 11, 6, 12])
-  max_size           = 20
-  pop_size           = 10
-  cromo_size         = len(sizes)
-  fitness_func       = subset_fitness
 
-  initial_pop = init_pop.init_pop(pop_size, cromo_size, init_pop.cromo_bin)
-  population = eval_pop(initial_pop, fitness_func, sizes, max_size)
-
-  print (population)
+  #import init_pop
+  #sizes              = array([5, 8, 4, 11, 6, 12])
+  #max_size           = 20
+  #pop_size           = 10
+  #cromo_size         = len(sizes)
+  #fitness_func       = subset_fitness
+  #initial_pop = init_pop.init_pop(pop_size, cromo_size, init_pop.cromo_bin)
+  #population = eval_pop(initial_pop, fitness_func, sizes, max_size)
+  #print (population)
 
 
 

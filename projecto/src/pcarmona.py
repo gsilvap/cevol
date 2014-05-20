@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'PedroCarmona'
+__author__ = 'Gonçalo Pereira, João Aguiar, Pedro Carmona'
 
 
 #imports
@@ -24,6 +24,8 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
             best_1 = sea_first(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
             best_2 = sea_second(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
             best_3 = sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            print("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
+            print(str(best_1[0]) + ', ' + str(best_2[0])  + ', ' + str(best_3[0]) + '\n')
             f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
         f_data.close()
         show(filename)
@@ -143,7 +145,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     cross_method       = uniform_cross
     select_survivors   = survivors_steady_state
-    max_gener          = 100
+    max_gener          =500
 
     run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
 
