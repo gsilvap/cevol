@@ -20,10 +20,13 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
         f_data.write('sea_first, sea_second, sea_third\n')
         for i in range(numb_runs):
             print('RUN...%s' % (i+1))
+            lista_first = []
+            lista_second = []
+            lista_third = []
             initial_pop = init_pop(pop_size, cromo_size, cromo_bin)
-            best_1 = sea_first(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
-            best_2 = sea_second(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
-            best_3 = sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            best_1, lista_first = sea_first(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            best_2, lista_second = sea_second(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            best_3, lista_third = sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
             print("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
             print(str(best_1[0]) + ', ' + str(best_2[0])  + ', ' + str(best_3[0]) + '\n')
             f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
@@ -37,9 +40,10 @@ def sea_first(initial_pop, fitness_func,select_parents, muta_method, cross_metho
     population = eval_pop(initial_pop, fitness_func, sizes, max_size)
     prob_cross         = 0.8
     prob_muta          = 0.01
-    generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    lista = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    
     best_individual = best_pop(population)
-    return best_individual
+    return best_individual, lista
 
 def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
     pop_size = len(initial_pop)
@@ -49,7 +53,7 @@ def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_meth
     prob_muta          = 0
     max_gener_70       = int(max_gener*0.7)
 
-    generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    lista = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
 
     prob_cross         = 0
     prob_muta          = 0.05
@@ -58,17 +62,24 @@ def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_meth
     if max_gener_30+ max_gener_70 < max_gener:
         max_gener_30 += max_gener_70
 
-    generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    res = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    lista.extend(res)
+
     best_individual = best_pop(population)
-    return best_individual
+    return best_individual, lista
 
 def generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    lista = []
     for gener in range(max_gener):
         mates = select_parents(population,pop_size,3)
         offspring = crossover(mates, prob_cross, cross_method)
         offspring = mutation(offspring, prob_muta,muta_method)
         offspring = eval_pop(offspring,fitness_func, sizes, max_size)
         population = select_survivors(population, offspring)
+        
+        population.sort(key=itemgetter(1), reverse=True)
+        lista.append(population[0][1])
+    return lista
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
@@ -78,6 +89,7 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
     cruz = [0.9, 0.7,  0.5, 0.3]
     mutacao = [0.01, 0.05, 0.1, 0.2]
 
+    lista = []
     gener_done = 0
     for i in range(4):
         prob_cross = cruz[i]
@@ -87,9 +99,10 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
         #we cant forget!!! os restos da divisao
         if i == 3 and gener_done<max_gener:
             gener_done+= max_gener-gener_done
-        generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener_interval, sizes, max_size)
+        res = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener_interval, sizes, max_size)
+        lista.extend(res)
     best_individual = best_pop(population)
-    return best_individual
+    return best_individual, lista
 
 
 """

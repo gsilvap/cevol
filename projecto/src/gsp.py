@@ -15,6 +15,19 @@ from genetic_algorithm.survivors import *
 
 # Algoritmo genetico
 
+    # 1º TESTE FIXO
+    # cruzamento = 0.9
+    # mutacao = 0.1
+
+    # 2º TESTE PROBABILIDADE INICIAL E FINAL
+    # cruzamento = 0.8 durante 70% das gerações, 0 nas seguintes
+    # mutacao = 0      durante 70% das gerações, 0.05 nas seguintes
+
+    # 3º TESTE PROBABILIDADES VARIAVEIS
+    # cruzamento  a descer de 0.9 a 0.7,  0.5, 0.3
+    # mutacao     a crescer de 0.01, 0.05, 0.1, 0.2
+    # quatro pares de valores
+    # definir como é feita a variação
 def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
     with open(filename,'w') as f_data:
         f_data.write('one_point_cross, uniform_cross\n')
@@ -109,24 +122,6 @@ if __name__ == '__main__':
         problem: sum subset of integers
     """
 
-    # 1º TESTE FIXO
-    # cruzamento = 0.9
-    # mutacao = 0.1
-
-
-
-    # 2º TESTE PROBABILIDADE INICIAL E FINAL
-    # cruzamento = 0.8 durante 70% das gerações, 0 nas seguintes
-    # mutacao = 0      durante 70% das gerações, 0.05 nas seguintes
-
-
-
-
-    # 3º TESTE PROBABILIDADES VARIAVEIS
-    # cruzamento  a descer de 0.9 a 0.7,  0.5, 0.3
-    # mutacao     a crescer de 0.01, 0.05, 0.1, 0.2
-    # quatro pares de valores
-    # definir como é feita a variação
 
     sizes              = array([5, 8, 4, 11, 6, 12])
     max_size           = 20
