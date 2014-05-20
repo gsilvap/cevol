@@ -40,9 +40,6 @@ def subset_fitness(indiv, sizes, max_size):
 
   return fitness
 
-def update_fitness(indiv, sizes, max_size, fitness_func):
-  indiv[1] = fitness_func(indiv, sizes, max_size)
-
 
 def eval_pop(population,fitness_function, sizes, max_size):
     return [[indiv[0], fitness_function(indiv[0],sizes, max_size)] for indiv in population]
@@ -56,8 +53,6 @@ if __name__ == '__main__':
   ## {4, 5, 11}
   #indiv2 = [array([1,0,1,1,0,0]),0]
   #fitness_func = subset_fitness
-  #update_fitness(indiv1, sizes, max_size, fitness_func)
-  #update_fitness(indiv2, sizes, max_size, fitness_func)
   #print(indiv1)
   #print(indiv2)
   import init_pop

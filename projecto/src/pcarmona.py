@@ -21,11 +21,48 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
         for i in range(numb_runs):
             print('RUN...%s' % (i+1))
             initial_pop = init_pop(pop_size, cromo_size, cromo_bin)
-            best_1 = sea(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
-            f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1] + '\n')
+            best_1 = sea_first(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            best_2 = sea_second(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            best_3 = sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+            f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
         f_data.close()
         show(filename)
 
+
+def sea_first(initial_pop, fitness_func,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+
+    pop_size = len(initial_pop)
+    population = eval_pop(initial_pop, fitness_func, sizes, max_size)
+    prob_cross         = 0.8
+    prob_muta          = 0.01
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    best_individual = best_pop(population)
+    return best_individual
+
+def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    pop_size = len(initial_pop)
+    population = eval_pop(initial_pop, fitness_func, sizes, max_size)
+
+    prob_cross         = 0.8
+    prob_muta          = 0
+    max_gener_70       = max_gener*0.7
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+
+    prob_cross         = 0
+    prob_muta          = 0.05
+    max_gener_30       = max_gener*0.3
+
+    generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    best_individual = best_pop(population)
+    return best_individual
+
+def generations(initial_pop, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    for gener in range(max_gener):
+        mates = select_parents(population,pop_size,3)
+        offspring = crossover(mates, prob_cross, cross_method)
+        offspring = mutation(offspring, prob_muta,muta_method)
+        offspring = eval_pop(offspring,fitness_func, sizes, max_size)
+        population = select_survivors(population, offspring)
 
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
@@ -38,7 +75,7 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
 
     prob_cross = cruz[0]
     prob_muta = mutacao[0]
-    
+
     i = 1
     for gener in range(max_gener):
         if (gener == interval[i]):
@@ -50,7 +87,7 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
         offspring = crossover(mates, prob_cross, cross_method)
         offspring = mutation(offspring, prob_muta,muta_method)
         offspring = eval_pop(offspring,fitness_func, sizes, max_size)
-        population = select_survivors(population, offspring)    
+        population = select_survivors(population, offspring)
     best_individual = best_pop(population)
     return best_individual
 
