@@ -45,6 +45,17 @@ def show(filename):
     plt.legend(loc='upper left')
     plt.show()
 
+def display_data(data1,data2, title):
+  """Plot the data"""
+  x1 = list(range(len(data1)))
+  x2 = list(range(len(data2)))
+  plt.grid(True)
+  plt.title(title + ' - Sum SubSet')
+  plt.xlabel('Run')
+  plt.ylabel('Best')
+  plt.plot(x1,data1, 'r')
+  plt.plot(x2,data2, 'b')
+  plt.show()
 
 if __name__ == '__main__':
   init_project()
