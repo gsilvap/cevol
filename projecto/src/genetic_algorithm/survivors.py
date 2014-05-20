@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from operator import itemgetter
 from copy import deepcopy
 from numpy import *
@@ -44,6 +46,6 @@ if __name__ == '__main__':
     select_survivors   = survivors_steady_state
 
     population = select_survivors(population, offspring)
-    [print (i) for i in offspring]
+    #[print (i) for i in offspring]
     print ("pop:")
-    [print (i) for i in population]
+    #[print (i) for i in population]

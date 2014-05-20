@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from copy import deepcopy
 from numpy import *
 import random
@@ -70,4 +72,4 @@ if __name__ == '__main__':
     offspring = crossover(mates, prob_cross, cross_method[0])
     offspring = crossover(mates, prob_cross, cross_method[1])
 
-    [print (i) for i in offspring]
+    #[print (i) for i in offspring]

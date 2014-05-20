@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from numpy import *
 
 def knapsack_fitness(pop):
