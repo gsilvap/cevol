@@ -22,6 +22,8 @@ def init_project():
   if not os.path.exists("out"):
     print ("initializing project...")
     os.makedirs("out")
+  if not os.path.exists("figures"):
+    os.makedirs("figures")
 
 # show results
 def show(filename):
@@ -45,25 +47,17 @@ def show(filename):
     plt.legend(loc='upper left')
     plt.show()
 
-def display_data(data1,data2, title):
-  """Plot the data"""
-  x1 = list(range(len(data1)))
-  x2 = list(range(len(data2)))
-  plt.grid(True)
-  plt.title(title + ' - Sum SubSet')
-  plt.xlabel('Run')
-  plt.ylabel('Best')
-  plt.plot(x1,data1, 'r')
-  plt.plot(x2,data2, 'b')
-  plt.show()
+
 
 def create_sample_test(n, limit):
   lista = np.random.permutation(limit-1)
   lista = lista + 1
   return lista[:n]
 
+
+
 if __name__ == '__main__':
-  #init_project()
+  init_project()
   #print(timestamp())
-  a = create_sample_test(10,20)
-  print(a)
+  #a = create_sample_test(10,20)
+  #print(a)

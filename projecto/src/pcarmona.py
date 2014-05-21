@@ -29,9 +29,10 @@ from genetic_algorithm.statistic import *
 # mutacao     a crescer de 0.01, 0.05, 0.1, 0.2
 # quatro pares de valores
 # definir como é feita a variação
-def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
-    with open(filename,'w') as f_data:
-        f_data.write('sea_first, sea_second, sea_third\n')
+def run_parents_selection(time_stamp, numb_runs,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size):
+    filename_bests_of_run = 'out/'+  time_stamp + '_bests_of_run_generations('+str(max_gener)+').csv'
+    with open(filename_bests_of_run,'w') as f_data:
+        f_data.write('best_individual_case1, best_individual_case2, best_individual_case3\n')
         runs_bests_1,runs_averages_1 = init_runs_evaluation()
         runs_bests_2,runs_averages_2 = init_runs_evaluation()
         runs_bests_3,runs_averages_3 = init_runs_evaluation()
@@ -56,14 +57,7 @@ def run_parents_selection(numb_runs, filename,pop_size, cromo_size, fitness_func
             f_data.write("%.15f" % best_1[1] + ', ' + "%.15f" % best_2[1]  + ', ' + "%.15f" % best_3[1] + '\n')
         f_data.close()
 
-        bests_per_generation_1, averages_per_generation_1 = final_evaluation(runs_bests_1, runs_averages_1)
-        bests_per_generation_2, averages_per_generation_2 = final_evaluation(runs_bests_2, runs_averages_2)
-        bests_per_generation_3, averages_per_generation_3 = final_evaluation(runs_bests_3, runs_averages_3)
-        display_data(bests_per_generation_1,averages_per_generation_1, "sea_first")
-        display_data(bests_per_generation_2,averages_per_generation_2, "sea_second")
-        display_data(bests_per_generation_3,averages_per_generation_3, "sea_third")
-
-        show(filename)
+    save_statistics_and_create_graphs(time_stamp, runs_bests_1, runs_averages_1, runs_bests_2, runs_averages_2, runs_bests_3, runs_averages_3)
 
 
 
@@ -92,7 +86,7 @@ def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_meth
     prob_cross         = 0
     prob_muta          = 0.05
     max_gener_30 = max_gener - max_gener_70
-    
+
     population = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener_30, sizes, max_size, generations_bests, generations_averages)
 
     best_individual = best_pop(population)
@@ -147,12 +141,12 @@ if __name__ == '__main__':
 
     #sizes              = array([5, 8, 4, 11, 6, 12])
     max_size           = 100
-    sizes              = create_sample_test(50,max_size) 
+    sizes              = create_sample_test(50,max_size)
     print(sizes)
     #array([5, 8, 4, 11, 6, 12])
 
     numb_runs          = 30
-    file_name = 'out/'+  timestamp() + '.csv'
+    time_stamp         = timestamp()
     pop_size           = 10
     # pop_size           = 150
     cromo_size         = len(sizes)
@@ -167,6 +161,6 @@ if __name__ == '__main__':
     select_survivors   = survivors_steady_state
     max_gener          = 100
 
-    run_parents_selection(numb_runs, file_name,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
+    run_parents_selection(time_stamp, numb_runs,pop_size, cromo_size, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size)
 
     pass
