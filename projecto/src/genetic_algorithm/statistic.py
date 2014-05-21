@@ -32,8 +32,8 @@ def average_of_run_per_generation(runs_averages):
   return sum/len(runs_averages)
 
 def best_of_run_per_generation(runs_averages):
-  sum = numpy.sum(runs_averages,axis=0)
-  return sum/len(runs_averages)
+  maxs = numpy.max(runs_averages,axis=0)
+  return maxs
 
 def evaluate_run(runs_bests, runs_averages, generations_bests, generations_averages ):
   #print ("generations_bests")
