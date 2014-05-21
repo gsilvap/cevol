@@ -6,7 +6,7 @@ import os
 import errno
 import sys
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 
 def timestamp():
@@ -57,7 +57,13 @@ def display_data(data1,data2, title):
   plt.plot(x2,data2, 'b')
   plt.show()
 
-if __name__ == '__main__':
-  init_project()
-  print(timestamp())
+def create_sample_test(n, limit):
+  lista = np.random.permutation(limit-1)
+  lista = lista + 1
+  return lista[:n]
 
+if __name__ == '__main__':
+  #init_project()
+  #print(timestamp())
+  a = create_sample_test(10,20)
+  print(a)

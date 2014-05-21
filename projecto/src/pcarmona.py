@@ -108,7 +108,6 @@ def generations(population, pop_size, fitness_func, prob_cross, prob_muta,select
         evaluate_generation(population, generations_bests, generations_averages)
     return population
 
-
 # ---------------------------- EVOLUTIONARY ALGORITHM --------------------------------------------------
 def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size, generations_bests,generations_averages):
     pop_size = len(initial_pop)
@@ -126,7 +125,6 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
 
     best_individual = best_pop(population)
     return best_individual
-
 
 """
     Fazer 30 runs, medir o desempenho com:
@@ -146,8 +144,12 @@ if __name__ == '__main__':
     """
 
 
-    sizes              = array([5, 8, 4, 11, 6, 12])
-    max_size           = 20
+
+    #sizes              = array([5, 8, 4, 11, 6, 12])
+    max_size           = 100
+    sizes              = create_sample_test(50,max_size) 
+    print(sizes)
+    #array([5, 8, 4, 11, 6, 12])
 
     numb_runs          = 30
     file_name = 'out/'+  timestamp() + '.csv'
