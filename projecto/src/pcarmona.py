@@ -91,11 +91,8 @@ def sea_second(initial_pop, fitness_func,select_parents, muta_method, cross_meth
 
     prob_cross         = 0
     prob_muta          = 0.05
-    max_gener_30       = int(max_gener*0.3)
-    #we cant forget!!! os restos da divisao
-    if max_gener_30+ max_gener_70 < max_gener:
-        max_gener_30 += max_gener_70
-
+    max_gener_30 = max_gener - max_gener_70
+    
     population = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener_30, sizes, max_size, generations_bests, generations_averages)
 
     best_individual = best_pop(population)
@@ -118,15 +115,13 @@ def sea_third(initial_pop, fitness_func, select_parents, muta_method, cross_meth
     population = eval_pop(initial_pop, fitness_func, sizes, max_size)
     cruz = [0.9, 0.7,  0.5, 0.3]
     mutacao = [0.01, 0.05, 0.1, 0.2]
-    gener_done = 0
+    max_gener_interval= int(max_gener*0.25)
     for i in range(4):
         prob_cross = cruz[i]
         prob_muta = mutacao[i]
-        max_gener_interval = int(max_gener*0.25)
-        gener_done += max_gener_interval
         #we cant forget!!! os restos da divisao
-        if i == 3 and gener_done<max_gener:
-            gener_done+= max_gener-gener_done
+        if i == 3 :
+            max_gener_interval = max_gener - 3 * max_gener_interval
         population = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener_interval, sizes, max_size, generations_bests,generations_averages)
 
     best_individual = best_pop(population)
