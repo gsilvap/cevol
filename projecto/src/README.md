@@ -37,3 +37,11 @@ criam uma nova população, correm e guardam
 
 - Independent T Test
 - Willcoxon
+
+
+
+
+mutacao:
+
+e^-kx
+e^kx
