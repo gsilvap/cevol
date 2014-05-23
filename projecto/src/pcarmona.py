@@ -69,7 +69,7 @@ def sea_first(initial_pop, fitness_func,select_parents, muta_method, cross_metho
     population = eval_pop(initial_pop, fitness_func, sizes, max_size)
     prob_cross         = 0.8
     prob_muta          = 0.01
-    generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size, generations_bests, generations_averages)
+    population = generations(population, pop_size, fitness_func, prob_cross, prob_muta,select_parents, muta_method, cross_method, select_survivors, max_gener, sizes, max_size, generations_bests, generations_averages)
     best_individual = best_pop(population)
     return best_individual
 
