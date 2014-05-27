@@ -2,56 +2,46 @@
 from operator import itemgetter
 import numpy
 import matplotlib.pyplot as plt
+import genetic_algorithm.survivors  as survivors
+
+def init_runs_evaluation(generations, runs):
+  #matrix with bests of each run per each
+    bests_matrix = numpy.zeros(shape=(generations, runs))
+    averages_matrix = numpy.zeros(shape=(generations, runs))
+    return bests_matrix, averages_matrix
 
 
-def init_generation_evaluation():
-    generations_bests = []
-    generations_averages = []
-    return generations_bests, generations_averages
-
-
-def evaluate_generation(population, generations_bests, generations_averages):
+def evaluate_generation(population, bests_matrix, averages_matrix, current_generation, current_run):
     # Evaluate and sort
-    population.sort(key=itemgetter(1), reverse = False) # Maximizing
     #plot
-    best_fit = population[0][1]
+    best_fit = survivors.best_pop(population)[1]
     avg_fit =  generation_average_fit(population)
-    generations_bests.append(best_fit)
-    generations_averages.append(avg_fit)
+    bests_matrix[current_generation][current_run]= int(best_fit)
+    averages_matrix[current_generation][current_run]= int(avg_fit)
+
 
 def generation_average_fit(population):
     return sum([indiv[1] for indiv in population])/len(population)
 
-def init_runs_evaluation():
-  #matrix with bests of each run per each
-    runs_bests = []
-    runs_averages = []
-    return runs_bests,runs_averages
 
-def average_of_run_per_generation(runs_averages):
-    sum = numpy.sum(runs_averages,axis=0)
-    return sum/len(runs_averages)
+def average_of_run_per_generation(averages_matrix):
+    sum = numpy.sum(averages_matrix,axis=1)
+    return sum/len(averages_matrix)
 
-def best_of_run_per_generation(runs_bests):
-    maxs = numpy.max(runs_bests,axis=0)
+
+def best_of_run_per_generation(bests_matrix):
+    maxs = numpy.max(bests_matrix,axis=1)
     return maxs
 
-def evaluate_run(runs_bests, runs_averages, generations_bests, generations_averages ):
-    #print ("generations_bests")
-    #print (runs_averages)
-    #print ("runs_bests")
-    #print (runs_bests)
-    runs_bests.append(generations_bests)
-    runs_averages.append(generations_averages)
 
-def final_evaluation(runs_bests, runs_averages):
-    averages_per_generation = average_of_run_per_generation(runs_averages)
-    bests_per_generation = best_of_run_per_generation(runs_bests)
-
+def final_evaluation(bests_matrix, averages_matrix):
+    bests_per_generation = best_of_run_per_generation(bests_matrix)
+    averages_per_generation = average_of_run_per_generation(averages_matrix)
     return bests_per_generation, averages_per_generation
-  #plot
-def test_function_represents_one_run_with_5_generations():
-    generations_bests, generations_averages = init_generation_evaluation()
+    #plot
+
+
+def test_function_represents_one_run_with_30_generations(bests_matrix, averages_matrix, max_gener, numb_runs,current_run):
     import init_pop
     import fitness
     sizes              = numpy.array([5, 8, 4, 11, 6, 12])
@@ -62,31 +52,29 @@ def test_function_represents_one_run_with_5_generations():
     initial_pop        = init_pop.init_pop(pop_size, cromo_size, init_pop.cromo_bin)
     population         = fitness.eval_pop(initial_pop, fitness_func, sizes, max_size)
 
-  #generation 1...5
-    for i in range(5):
-        evaluate_generation(population, generations_bests, generations_averages)
+  #generation 1...30 generations
+    for current_generation in range(max_gener):
+        evaluate_generation(population, bests_matrix, averages_matrix,current_generation, current_run )
         # population is reinitialized to simulate that a generation changed
         initial_pop        = init_pop.init_pop(pop_size, cromo_size, init_pop.cromo_bin)
         population         = fitness.eval_pop(initial_pop, fitness_func, sizes, max_size)
 
-    return generations_bests,generations_averages
+
+def test_statistics_generates_case_sample_of_an_algorithm_with_30_generations_and_100_runs(bests_matrix, averages_matrix, max_gener, numb_runs):
+    #simulate 100 runs
+    for current_run in range(numb_runs):
+        test_function_represents_one_run_with_30_generations(bests_matrix, averages_matrix, max_gener, numb_runs,current_run)
 
 
-def test_statistics_generates_case_sample_of_an_algorithm_with_5_generations_and_5_runs():
-    runs_bests,runs_averages = init_runs_evaluation()
-    #simulate 5 runs
-    for i in range(5):
-        generations_bests,generations_averages = test_function_represents_one_run_with_5_generations()
-        evaluate_run(runs_bests, runs_averages, generations_bests, generations_averages)
 
-    return runs_bests, runs_averages
-
-
-def save_statistics_and_create_graphs(time_stamp, runs_bests_1, runs_averages_1, runs_bests_2, runs_averages_2,
-                                                        runs_bests_3, runs_averages_3):
-    bests_per_generation_1, averages_per_generation_1 = final_evaluation(runs_bests_1, runs_averages_1)
-    bests_per_generation_2, averages_per_generation_2 = final_evaluation(runs_bests_2, runs_averages_2)
-    bests_per_generation_3, averages_per_generation_3 = final_evaluation(runs_bests_3, runs_averages_3)
+def save_statistics_and_create_graphs(
+        time_stamp,
+        bests_matrix_1, averages_matrix_1,
+        bests_matrix_2, averages_matrix_2,
+        bests_matrix_3, averages_matrix_3):
+    bests_per_generation_1, averages_per_generation_1 = final_evaluation(bests_matrix_1, averages_matrix_1)
+    bests_per_generation_2, averages_per_generation_2 = final_evaluation(bests_matrix_2, averages_matrix_2)
+    bests_per_generation_3, averages_per_generation_3 = final_evaluation(bests_matrix_3, averages_matrix_3)
 
     figure_filename = 'figures/'+time_stamp+'.png'
     draw_graphic(figure_filename,bests_per_generation_1, averages_per_generation_1, bests_per_generation_2,
@@ -163,25 +151,38 @@ def first_max_of_best(bests):
 def save_to_file(time_stamp, data_title, data1,data2,data3):
     with open('out/'+ time_stamp+'_'+data_title+'_generations('+str(len(data1))+').csv','w') as f_data:
         #header
-        f_data.write(data_title+'_case1,'+data_title+'_case2,'+data_title+'_case3\n')
+        #f_data.write(data_title+'_case1,'+data_title+'_case2,'+data_title+'_case3\n')
         #body
         for i in range(len(data1)):
-            f_data.write("%.15f" % data1[i] + ', ' + "%.15f" % data2[i]  + ', ' + "%.15f" % data3[i] + '\n')
+            f_data.write("%.0f" % data1[i] + ', ' + "%.0f" % data2[i]  + ', ' + "%.0f" % data3[i] + '\n')
         f_data.close()
 
 
-
 if __name__ == '__main__':
-  global time_stamp
-  import utilities
+    bests_matrix, averages_matrix = init_runs_evaluation(100,30)
 
-  time_stamp         = utilities.timestamp()
+    import utilities
 
-  runs_bests_1, runs_averages_1 = test_statistics_generates_case_sample_of_an_algorithm_with_5_generations_and_5_runs()
-  runs_bests_2, runs_averages_2 = test_statistics_generates_case_sample_of_an_algorithm_with_5_generations_and_5_runs()
-  runs_bests_3, runs_averages_3 = test_statistics_generates_case_sample_of_an_algorithm_with_5_generations_and_5_runs()
-  save_statistics_and_create_graphs(time_stamp, runs_bests_1, runs_averages_1, runs_bests_2,
-                                                        runs_averages_2, runs_bests_3, runs_averages_3)
+    time_stamp         = utilities.timestamp()
+    time_stamp = "111"
+    max_gener = 100
+    numb_runs = 30
+    bests_matrix_1, averages_matrix_1 = init_runs_evaluation(max_gener,numb_runs)
+    bests_matrix_2, averages_matrix_2 = init_runs_evaluation(max_gener,numb_runs)
+    bests_matrix_3, averages_matrix_3 = init_runs_evaluation(max_gener,numb_runs)
+    test_statistics_generates_case_sample_of_an_algorithm_with_30_generations_and_100_runs(bests_matrix_1, averages_matrix_1, max_gener, numb_runs)
+    test_statistics_generates_case_sample_of_an_algorithm_with_30_generations_and_100_runs(bests_matrix_2, averages_matrix_2, max_gener, numb_runs)
+    test_statistics_generates_case_sample_of_an_algorithm_with_30_generations_and_100_runs(bests_matrix_3, averages_matrix_3, max_gener, numb_runs)
+    save_statistics_and_create_graphs(
+        time_stamp,
+        bests_matrix_1, averages_matrix_1,
+        bests_matrix_2, averages_matrix_2,
+        bests_matrix_3, averages_matrix_3)
+
+   #print (runs_bests_1)
+    #for i in range (0, 5):
+    #  if runs_bests_1.find(i):
+    #      print("cenas:"+i)
 
 
 
