@@ -1,0 +1,27 @@
+{
+    "folders":
+    [
+        {
+            "path": "src",
+            "folder_exclude_patterns": ["backup"]
+        },
+        {
+            "path": "docs",
+            "name": "Documentation",
+            "file_exclude_patterns": ["*.css"]
+        }
+    ],
+    "settings":
+    {
+        "python_interpreter": "/Users/pedrocarmona/anaconda/envs/py3k/bin/python3.3",
+        "python_bin": "/Users/pedrocarmona/anaconda/envs/py3k/bin/pylint",
+        "pylint_path": "/Users/pedrocarmona/anaconda/envs/py3k/lib/python3.3/site-packages/pylint/lint.py"
+    },
+    "build_systems":
+    [
+        {
+            "name": "List",
+            "cmd": ["ls"]
+        }
+    ]
+}
