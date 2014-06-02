@@ -32,12 +32,12 @@ from genetic_algorithm.statistic import *
 
 
 def run_parents_selection(
-        time_stamp, numb_runs, pop_size, cromo_size, fitness_func,
+        time_stamp_begin, numb_runs, pop_size, cromo_size, fitness_func,
         select_parents, muta_method, cross_method, select_survivors,
         max_gener, sizes, max_size):
 
     filename_bests_of_run = (
-        'out/' + time_stamp + '_bests_of_run_generations('
+        'out/' + time_stamp_begin + '_bests_of_run_generations('
         + str(max_gener) + ').csv')
 
     with open(filename_bests_of_run, 'w') as f_data:
@@ -70,8 +70,9 @@ def run_parents_selection(
                 + "%.0f" % best_3[1] + '\n')
         f_data.close()
 
+    time_stamp_end = timestamp()
     save_statistics_and_create_graphs(
-        time_stamp,
+        ''+time_stamp_begin+'-'+time_stamp_end,
         bests_matrix_1, averages_matrix_1,
         bests_matrix_2, averages_matrix_2,
         bests_matrix_3, averages_matrix_3)
@@ -195,7 +196,6 @@ if __name__ == '__main__':
 
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    TIMESTAMP = "000"
     POP_SIZE = 10
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)

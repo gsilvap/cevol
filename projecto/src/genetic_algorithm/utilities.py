@@ -6,6 +6,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
+import shutil
 
 
 def timestamp():
@@ -66,7 +67,14 @@ def create_sample_test(dimension, limit):
     return lista[:dimension]
 
 
+def clean_project():
+    """cleans the project directory"""
+    shutil.rmtree('out')
+    shutil.rmtree('figures')
+
+
 if __name__ == '__main__':
+    clean_project()
     init_project()
     #print(timestamp())
     #a = create_sample_test(10,20)

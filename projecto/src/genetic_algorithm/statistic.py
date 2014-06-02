@@ -3,6 +3,7 @@ from operator import itemgetter
 import numpy
 import matplotlib.pyplot as plt
 import genetic_algorithm.survivors  as survivors
+from copy import deepcopy
 
 def init_runs_evaluation(generations, runs):
   #matrix with bests of each run per each
@@ -14,19 +15,21 @@ def init_runs_evaluation(generations, runs):
 def evaluate_generation(population, bests_matrix, averages_matrix, current_generation, current_run):
     # Evaluate and sort
     #plot
+    #new_population = deepcopy(population)
+    avg_fit = generation_average_fit(population)
     best_fit = survivors.best_pop(population)[1]
-    avg_fit =  generation_average_fit(population)
-    bests_matrix[current_generation][current_run]= int(best_fit)
-    averages_matrix[current_generation][current_run]= int(avg_fit)
+    bests_matrix[current_generation][current_run] = best_fit
+    averages_matrix[current_generation][current_run] = avg_fit
 
 
 def generation_average_fit(population):
-    return sum([indiv[1] for indiv in population])/len(population)
+    sum_aux = sum([indiv[1] for indiv in population])
+    return sum_aux/len(population)
 
 
 def average_of_run_per_generation(averages_matrix):
-    sum = numpy.sum(averages_matrix,axis=1)
-    return sum/len(averages_matrix)
+    sumaux = numpy.sum(averages_matrix,axis=1)
+    return sumaux/len(averages_matrix)
 
 
 def best_of_run_per_generation(bests_matrix):
@@ -82,6 +85,9 @@ def save_statistics_and_create_graphs(
 
     save_to_file(time_stamp, "bests", bests_per_generation_1,bests_per_generation_2,bests_per_generation_3)
     save_to_file(time_stamp, "averages", averages_per_generation_1,averages_per_generation_2,averages_per_generation_3)
+
+    save_matrix(time_stamp, "bests_matrix_1", bests_matrix_1)
+    save_matrix(time_stamp, "averages_matrix_1", averages_matrix_1)
 
 
 
@@ -157,6 +163,16 @@ def save_to_file(time_stamp, data_title, data1,data2,data3):
             f_data.write("%.0f" % data1[i] + ', ' + "%.0f" % data2[i]  + ', ' + "%.0f" % data3[i] + '\n')
         f_data.close()
 
+def save_matrix(time_stamp, data_title, matrix):
+    with open('out/'+ time_stamp+'_'+data_title+'_generations('+str(len(matrix))+').csv','w') as f_data:
+        #header
+        #f_data.write(data_title+'_case1,'+data_title+'_case2,'+data_title+'_case3\n')
+        #body
+        for line in matrix:
+            for i in range(len(line)-1):
+                f_data.write("%.0f" % line[i] + ', ')
+            f_data.write("%.0f" % line[(len(line)-1)] + '\n')
+        f_data.close()
 
 if __name__ == '__main__':
     bests_matrix, averages_matrix = init_runs_evaluation(100,30)
