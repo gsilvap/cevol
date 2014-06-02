@@ -1,0 +1,17 @@
+{
+    "folders":
+    [
+        {
+            "path": "pcarmona-paper",
+            "file_exclude_patterns": [ "*.log", "*.aux", "*.blg", "*.lof", "*.lot", "*.toc", "*.eps","*.dvi","*.4ct","*.4tc","*.css","*.fdb_latexmk","*.html","*.idv","*.lg","*.out","*.synctex.gz","*.tags","*.tmp","*.xref","*.ps","*.bbl","*.out"]
+        }
+    ],
+    "settings":
+    {
+        "spell_check": true,
+    },
+    "build_systems":
+    [
+
+    ]
+}
