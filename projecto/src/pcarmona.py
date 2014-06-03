@@ -189,15 +189,12 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     #sizes              = array([5, 8, 4, 11, 6, 12])
-    MAX_SIZE = 2000
     FIRST_VAL = 200
     SECOND_VAL = 10000
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
     print(SIZES)
     print(MAX_SIZE)
-
     #array([5, 8, 4, 11, 6, 12])
-
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
     POP_SIZE = 200
