@@ -189,8 +189,8 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     #sizes              = array([5, 8, 4, 11, 6, 12])
-    MAX_SIZE = 100
-    SIZES = create_sample_test(50, MAX_SIZE)
+    MAX_SIZE = 50
+    SIZES = create_sample_test(25, MAX_SIZE)
     print(SIZES)
     #array([5, 8, 4, 11, 6, 12])
 
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 100
+    MAX_GENER = 1000
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,
