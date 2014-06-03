@@ -189,14 +189,14 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     #sizes              = array([5, 8, 4, 11, 6, 12])
-    MAX_SIZE = 50
-    SIZES = create_sample_test(25, MAX_SIZE)
+    MAX_SIZE = 100
+    SIZES = create_sample_test(50, MAX_SIZE)
     print(SIZES)
     #array([5, 8, 4, 11, 6, 12])
 
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    POP_SIZE = 200
+    POP_SIZE = 100
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)
     # cromo_size         = 10
