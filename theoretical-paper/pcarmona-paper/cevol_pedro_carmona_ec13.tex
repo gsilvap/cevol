@@ -1,21 +1,16 @@
 \documentclass[12pt,portuguese,a4paper]{article}
 \usepackage{includes}
 
-\title{\Large{\textbf{Título}}}
-\author{ Pedro Carmona \\ Computação Evolucionária\\ MEI -2013/2014 \\ Universidade de Coimbra \\ -- email --}
+\title{\LARGE{\textbf{Revisão e Reflexão do Artigo:}}\\ Transposition - A Biologically Inspired Mechanism to Use with Genetic Algorithms \cite{Simoes99transposition:a}}
+\author{ \textbf{Pedro Carmona} \\ Computação Evolucionária\\ MEI -2013/2014 \\ Universidade de Coimbra \\ pcarmona@student.dei.uc.pt}
 \date{\today}
 
 \renewcommand\lstlistingname{Listagem}
 
-
 %%% BEGIN DOCUMENT
 \begin{document}
 
-
-
-
 \maketitle
-
 
 \begin{abstract}
 
@@ -25,30 +20,84 @@ Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} r
 
 \section{What}
 
-Aqui se descreve a referência do trabalho e se dá o contexto, isto é, a área e o \textbf{tema} do artigo (do ponto de vista do autor).
+%Aqui se descreve a referência do trabalho e se dá o contexto, isto é, a área e o \textbf{tema} do artigo (do ponto de vista do autor).
+
+O artigo revisto, \cite{Simoes99transposition:a}, tem como área de estudo a programação inspirada na biologia evolucionária.
+Nesta área estudaram-se desde cedo e com maior difusão dois operadores genéticos de variação, sendo eles a mutação de genes e o cruzamento de cromossomas, de onde foi retirada a conclusão de que a mutação não é suficiente.
+
+Na biologia existem ainda outros métodos de recombinação menos populares, como por exemplo \textit{transformation, transduction, conjugation, retroinsertion, fusion, unequal recombination, transposition}\cite{Simoes99transposition:a}. De estes métodos alternativos, foi selecionado um pelos autores para a realização deste artigo.
+
+O artigo debruça-se sobre um método diferente de recombinação genética, a transposição.
+A transposição permite a recombinação através de permutação dentro do cromossoma, ou por vezes também permutações entre cromossomas.
+
+No trabalho \cite{Simoes99transposition:a} são ainda expostos resultados promissores, mas ao mesmo tempo os autores consideram ser um estudo ainda curto para tirar conclusões finais.
+
+
+Genetic Algorithms (GA's) are a search paradigm that applies ideas from evolutionary biology
+
+
+
+concluded that mutation alone is not always sufficient
+
+diversity of the species genetic material is obtained by several mechanisms which involve gene insertion, duplication or movement
+
+alternative genetic operators:
+conjugation - uni-directional transfer of genetic material, .... to solve hard satisfiability problems
+
+alternative to crossover, inspired in real biology
+
+consists in the presence of genetic mobile units called transposons, subsequently jumping into new zones of the same or other chromosome.
+
+Mutation is applied with a low rate and has the ability to "shake" the GA enabling it to continue evolving.
+
+ Transposition
+like gene insertion, duplication or movement.
+
+transformation, transduction, conjugation, retroinsertion, etc. (involving gene insertion); break and fusion, unequal recombination, transposition, etc
+
+
+Transposition characterises itself by the presence of mobile genetic units that move about in the genome,
+removing themselves to new locations or by duplicating themselves for insertion elsewhere.
+themselves to new locations or by duplicating themselves for insertion elsewhere
+transposons (also known as jumping genes)
+
+
+an move in several ways, none of which is fully understand: some transposons move from one site on the chromosome to a new point of the same or to the other chromosome; others leave a copy behind, still others remain fixed but dispatch copies to other sites.
+
+duplicates itself and the seek for another insertion point continues in the same way
+
+UV radiation could not be the result of the normal recombination and mutation processes
+
+move producing kernels with unusual colours that could not have resulted from crossover or mutation
+
+
+Computational Transposition
+After selecting two parents for mating we look for the transposon in one of them.
+The same amount of genetic material is exchanged between the two chromosomes according to the found insertion point
+Now, we are going to describe how the transposon will be formed, how it will move in the genome, how to define the insertion point, how to define the flanking sequences length and how the integration in the new position will take place.
+
+-Choose at random a gene
+-flanking sequence lenght (FSL) genes immediately before gene T
+-second flanking sequence can be identical or inverse to the first one
+
+- In case no other FSL found there will be no transposition.
+- If there is no equal or inverse sequence in the target chromosome, the insertion point is defined randomly
+
 
 \section{Why}
 
-Porque é que o \textbf{autor} acha a questão relevante? Porque é que \textbf{nós} achamos a questão relevante? Aqui se colocam as respostas a estas duas questões.
+%Porque é que o \textbf{autor} acha a questão relevante? Porque é que \textbf{nós} achamos a questão relevante? Aqui se colocam as respostas a estas duas questões.
 
 \section{Contribution(s)}
 
-O que \textbf{propõe} o autor? Caso exista uma análise experimental, quais os \textbf{resultados} que suportam as conclusões do autor?
+%O que \textbf{propõe} o autor? Caso exista uma análise experimental, quais os \textbf{resultados} que suportam as conclusões do autor?
 
 
 \section{Like/ Don't Like}
 
-Esta é uma parte relevante do trabalho, para efeitos de avaliação. Identifique os aspetos \textbf{positivos} e \textbf{negativos} da proposta. Que \textbf{você} alternativas sugere? As ideias do autor podem ser adaptadas a outras questões?\\
+%Esta é uma parte relevante do trabalho, para efeitos de avaliação. Identifique os aspetos \textbf{positivos} e \textbf{negativos} da proposta. Que \textbf{você} alternativas sugere? As ideias do autor podem ser adaptadas a outras questões?\\
 
-\noindent {\Large \textbf{Bibliografia}}\\
-
-Coloque nesta parte final a bibliografia adicional que eventualmente leu/ajudou a perceber a alisar o trabalho.
-
-
-
-
-\bibliographystyle{plain}
-% retirar comentrio na prxima linha para incluir bibliografia
-%\bibliography{??}
+\bibliographystyle{IEEEtran}
+\bibliography{cevol_pedro_carmona_ec13}
 
 \end{document}

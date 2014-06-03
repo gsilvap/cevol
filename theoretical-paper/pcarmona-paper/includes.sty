@@ -35,7 +35,6 @@
 % comment line below for Windows platforms
 %\usepackage[applemac]{inputenc}
 
-\usepackage{natbib}
 \usepackage{color}
 \usepackage{colortbl}
 \usepackage{fancybox,calc}
@@ -70,3 +69,25 @@
 \usepackage{soul}
 \usepackage{epigraph}
 %\usepackage{chicago}
+
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{placeins}
+\usepackage{cite}
+\usepackage{afterpage,array,rotating}
+%because of links in references
+\renewcommand\_{\textunderscore\allowbreak}
+%to put comments
+%\usepackage{pdfcomment}
+
+\let\origthebibliography\thebibliography
+\let\origendthebibliography\endthebibliography
+\newif\ifemptybibliography
+\renewenvironment{thebibliography}[1]
+ {\if\relax\detokenize{#1}\relax\emptybibliographytrue\else\origthebibliography{#1}\fi}
+ {\ifemptybibliography\else\origendthebibliography\fi}
+
+ \renewcommand{\refname}{Bibliografia}
+
