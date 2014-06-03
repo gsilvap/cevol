@@ -189,14 +189,20 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     #sizes              = array([5, 8, 4, 11, 6, 12])
-    MAX_SIZE = 50
-    SIZES = create_sample_test(25, MAX_SIZE)
+    MAX_SIZE = 2000
+    FIRST_VAL = 200
+    SECOND_VAL = 10000
+    SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
     print(SIZES)
+    print(MAX_SIZE)
+
     #array([5, 8, 4, 11, 6, 12])
 
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
     POP_SIZE = 200
+    POP_SIZE = 100
+    POP_SIZE = 50
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)
     # cromo_size         = 10
@@ -208,7 +214,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 1000
+    MAX_GENER = 100
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,

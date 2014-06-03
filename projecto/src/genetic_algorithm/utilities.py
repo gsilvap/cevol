@@ -7,6 +7,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import shutil
+from operator import itemgetter
 
 
 def timestamp():
@@ -64,7 +65,11 @@ def create_sample_test(dimension, limit):
     """
     lista = np.random.permutation(limit-1)
     lista = lista + 1
-    return lista[:dimension]
+    sortedlist =np.sort(lista)
+    sortedlist = sortedlist[::-1]
+    maxsizeaux = int(0.3*dimension)
+    maxsize = 0.95*sum(sortedlist[:maxsizeaux])
+    return lista[:dimension], int(maxsize)
 
 
 def clean_project():
@@ -74,8 +79,9 @@ def clean_project():
 
 
 if __name__ == '__main__':
-    clean_project()
-    init_project()
+    #clean_project()
+    #init_project()
     #print(timestamp())
-    #a = create_sample_test(10,20)
-    #print(a)
+    a, b = create_sample_test(200,2000)
+    print(a)
+    print(b)
