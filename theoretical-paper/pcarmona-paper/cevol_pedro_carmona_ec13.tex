@@ -1,60 +1,9 @@
 \documentclass[12pt,portuguese,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage[scaled]{luximono}
-\usepackage{amsmath}
-\usepackage{babel}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{includes}
 
-%uncomment line below for Windows plarforms
-%\usepackage[latin1]{inputenc}
-
-% comment line below for Windows platforms
-\usepackage[applemac]{inputenc}
-
-\usepackage{natbib}
-\usepackage{color}
-\usepackage{colortbl}
-\usepackage[colorlinks,urlcolor=blue]{hyperref}
-\usepackage{fancybox,calc}
-\usepackage{alltt}
-\usepackage[Lenny]{fncychap}
-\usepackage{makeidx}
-\usepackage{fancyvrb}
-\usepackage{algorithm2e}
-
-
-%%% PACKAGES
-\usepackage{booktabs} % for much better looking tables
-\usepackage{array} % for better arrays (eg matrices) in maths
-\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
-\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
-\usepackage{subfigure} % make it possible to include more than one captioned figure/table in a single float
-% These packages are all incorporated in the memoir class to one degree or another...
-
-
-
-
-%%% Para o código
-\usepackage{listings}
-\lstloadlanguages{Python,C,Java,Prolog,Lisp}
-
-\lstset{backgroundcolor=\color{yellow},language=Python,captionpos=b,showstringspaces=false,basicstyle=\ttfamily,commentstyle=\color{blue},tabsize=2,breaklines=true}
-
-%% E mais umas coisas
-\usepackage{pifont}
-\usepackage{lettrine}
-\usepackage{soul}
-\usepackage{epigraph}
-%\usepackage{chicago}
-
-% See the ``Article customise'' template for come common customisations
-
-\title{\Large{\textbf{Título }}}
-\author{-- Autor-- \\ Computa\c cão Evolucionária\\ MEI -2013/2014 \\ Universidade de Coimbra \\ -- email --}
-\date{\today} % delete this line to display the current date
-
+\title{\Large{\textbf{T√≠tulo}}}
+\author{ Pedro Carmona \\ Computa√ß√£o Evolucion√°ria\\ MEI -2013/2014 \\ Universidade de Coimbra \\ -- email --}
+\date{\today}
 
 \renewcommand\lstlistingname{Listagem}
 
@@ -70,26 +19,26 @@
 
 \begin{abstract}
 
-O resumo é  o local onde se faz a síntese do documento.
-Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} relativa ao texto teórico que contam para a avaliação na cadeira. São descritas as suas várias secções e o que se pretende com cada uma delas.  Este documento deve ter um \textbf{máximo de três páginas de texto}, não sendo obrigatório a sua escrita em \LaTeX{}. A inclusão de figuras e/ou tabelas não  interfere com este limite.Pode ser escrito em português ou em inglês.
+O resumo √© o local onde se faz a s√≠ntese do documento.
+Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} relativa ao texto te√≥rico que contam para a avalia√ß√£o na cadeira. S√£o descritas as suas v√°rias sec√ß√µes e o que se pretende com cada uma delas.  Este documento deve ter um \textbf{m√°ximo de tr√™s p√°ginas de texto}, n√£o sendo obrigat√≥rio a sua escrita em \LaTeX{}. A inclus√£o de figuras e/ou tabelas n√£o  interfere com este limite.Pode ser escrito em portugu√™s ou em ingl√™s.
 \end{abstract}
 
 \section{What}
 
-Aqui se descreve a referência do trabalho e se dá o contexto, isto é,  a área e o \textbf{tema} do artigo (do ponto de vista do autor).
+Aqui se descreve a refer√™ncia do trabalho e se d√° o contexto, isto √©, a √°rea e o \textbf{tema} do artigo (do ponto de vista do autor).
 
 \section{Why}
 
-Porque é que o \textbf{autor} acha a questão relevante? Porque é que \textbf{nós} achamos a questão relevante? Aqui se colocam as respostas a estas duas questões.
+Porque √© que o \textbf{autor} acha a quest√£o relevante? Porque √© que \textbf{n√≥s} achamos a quest√£o relevante? Aqui se colocam as respostas a estas duas quest√µes.
 
 \section{Contribution(s)}
 
-O que \textbf{propõe} o autor? Caso exista uma análise experimental, quais os \textbf{resultados} que suportam as conclusões do autor?
+O que \textbf{prop√µe} o autor? Caso exista uma an√°lise experimental, quais os \textbf{resultados} que suportam as conclus√µes do autor?
 
 
 \section{Like/ Don't Like}
 
-Esta é uma parte relevante do trabalho, para efeitos de avaliação. Identifique os aspectos \textbf{positivos} e \textbf{negativos} da proposta. Que \textbf{você} alternativas sugere? As ideias do autor podem ser adaptadas a outras questões?\\
+Esta √© uma parte relevante do trabalho, para efeitos de avalia√ß√£o. Identifique os aspetos \textbf{positivos} e \textbf{negativos} da proposta. Que \textbf{voc√™} alternativas sugere? As ideias do autor podem ser adaptadas a outras quest√µes?\\
 
 \noindent {\Large \textbf{Bibliografia}}\\
 
@@ -99,7 +48,7 @@ Coloque nesta parte final a bibliografia adicional que eventualmente leu/ajudou 
 
 
 \bibliographystyle{plain}
-% retirar comentário na próxima linha para incluir bibliografia
+% retirar coment¬ário na pr¬óxima linha para incluir bibliografia
 %\bibliography{??}
 
 \end{document}
