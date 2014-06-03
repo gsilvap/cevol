@@ -20,6 +20,8 @@ def evaluate_generation(population, bests_matrix, averages_matrix, current_gener
     best_fit = survivors.best_pop(population)[1]
     bests_matrix[current_generation][current_run] = best_fit
     averages_matrix[current_generation][current_run] = avg_fit
+    if(best_fit< avg_fit):
+        print ("ERRROOOOOOOO")
 
 
 def generation_average_fit(population):
