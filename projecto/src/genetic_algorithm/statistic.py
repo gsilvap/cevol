@@ -29,7 +29,7 @@ def generation_average_fit(population):
 
 def average_of_run_per_generation(averages_matrix):
     sumaux = numpy.sum(averages_matrix,axis=1)
-    return sumaux/len(averages_matrix)
+    return sumaux/len(averages_matrix[0])
 
 
 def best_of_run_per_generation(bests_matrix):

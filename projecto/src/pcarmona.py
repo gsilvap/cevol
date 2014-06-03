@@ -189,8 +189,8 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     #sizes              = array([5, 8, 4, 11, 6, 12])
-    MAX_SIZE = 50
-    SIZES = create_sample_test(25, MAX_SIZE)
+    MAX_SIZE = 2000
+    SIZES = create_sample_test(400, MAX_SIZE)
     print(SIZES)
     #array([5, 8, 4, 11, 6, 12])
 
