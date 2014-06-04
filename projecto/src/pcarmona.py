@@ -68,6 +68,9 @@ def run_parents_selection(
             f_data.write(
                 "%.0f" % best_1[1] + ', ' + "%.0f" % best_2[1] + ', '
                 + "%.0f" % best_3[1] + '\n')
+            print(
+                "%.0f" % best_1[1] + ', ' + "%.0f" % best_2[1] + ', '
+                + "%.0f" % best_3[1] + '\n')
         f_data.close()
 
     time_stamp_end = timestamp()
@@ -188,17 +191,20 @@ def sea_third(
 if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
-    #sizes              = array([5, 8, 4, 11, 6, 12])
     FIRST_VAL = 200
-    SECOND_VAL = 10000
-    SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
+    SECOND_VAL = 2000
+    #SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
+    SIZES = array([5, 8, 4, 11, 6, 12])
+    MAX_SIZE = 20
+    print("SIZES")
     print(SIZES)
+    print("MAX_SIZE")
     print(MAX_SIZE)
     #array([5, 8, 4, 11, 6, 12])
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    POP_SIZE = 200
-    POP_SIZE = 100
+    #POP_SIZE = 200
+    #POP_SIZE = 100
     POP_SIZE = 50
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)

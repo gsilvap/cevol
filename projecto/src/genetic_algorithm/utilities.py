@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import shutil
 from operator import itemgetter
+import random
 
 
 def timestamp():
@@ -65,11 +66,24 @@ def create_sample_test(dimension, limit):
     """
     lista = np.random.permutation(limit-1)
     lista = lista + 1
-    sortedlist =np.sort(lista)
-    sortedlist = sortedlist[::-1]
-    maxsizeaux = int(0.3*dimension)
-    maxsize = 0.95*sum(sortedlist[:maxsizeaux])
-    return lista[:dimension], int(maxsize)
+
+    maxInBag = np.sum(lista[dimension:1.25*dimension])
+    #get maxInBag
+    #maxinlista = np.max(lista[:dimension])
+    #indexes = np.where(lista > maxinlista)[0]
+    #index1 = random.choice(indexes)
+    #index2 = random.choice(indexes)
+    #index3 = random.choice(indexes)
+    #maxInBag = lista[index1]+lista[index2]+lista[index3]
+    #max e obtido atraves de 15%  dos melhores + 3%dos piores
+    #caso nao seja possivel obter 3%, é com o maior e com o menor
+    #maxsizeaux1 = int(0.05*dimension)
+    #maxsizeaux2 = int(0.05*dimension)
+    #sortedlist = np.sort(lista)
+    #maxsize = sum(sortedlist[:1])
+    #sortedlist = sortedlist[::-1]
+    #maxsize = maxsize + sum(sortedlist[:1])
+    return lista[:dimension], maxInBag
 
 
 def clean_project():
