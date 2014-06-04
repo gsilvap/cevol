@@ -81,6 +81,20 @@ def run_parents_selection(
         bests_matrix_3, averages_matrix_3)
 
 
+    with open("out/"+time_stamp_begin+'-'+time_stamp_end+"-configs.txt", 'w') as f:
+        f.write("numero de runs \t\t\t\t\t%d" % numb_runs + '\n' 
+            + "maximo geracoes \t\t\t\t%d" % max_gener + '\n' 
+            + "tamanho da populacao \t\t\t%d" % pop_size + '\n' 
+            + "tamanho cromossoma \t\t\t\t%d" % cromo_size + '\n'
+            + "tamanho maximo \t\t\t\t\t%d" % max_size + '\n\n')
+        f.write("Lista de pesos: \n")
+        f.write(str(sizes))
+        f.close()
+
+
+        
+
+
 def sea_first(
         initial_pop, fitness_func, select_parents, muta_method, cross_method,
         select_survivors, max_gener, sizes, max_size, bests_matrix,
@@ -194,8 +208,8 @@ if __name__ == '__main__':
     FIRST_VAL = 5
     SECOND_VAL = 20
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
-    #SIZES = array([5, 8, 4, 11, 6, 12])
-    #MAX_SIZE = 20
+    SIZES = array([5, 8, 4, 11, 6, 12])
+    MAX_SIZE = 20
     print("SIZES")
     print(SIZES)
     print("MAX_SIZE")
@@ -217,7 +231,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 100
+    MAX_GENER = 1
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,
