@@ -227,7 +227,7 @@ def parse_input(argv):
 if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
-    FIRST_VAL, SECOND_VAL, POP_SIZE = parse_input(sys.argv[1:])
+    FIRST_VAL, SECOND_VAL, POP_SIZE, MAX_GENER = parse_input(sys.argv[1:])
     #FIRST_VAL = 30
     #SECOND_VAL = 150
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
