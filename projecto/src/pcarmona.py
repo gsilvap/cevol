@@ -203,7 +203,7 @@ if __name__ == '__main__':
     #array([5, 8, 4, 11, 6, 12])
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    POP_SIZE = 400
+    POP_SIZE = 100
     #POP_SIZE = 100
     #POP_SIZE = 50
     # pop_size           = 150
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 100
+    MAX_GENER = 1000
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,
