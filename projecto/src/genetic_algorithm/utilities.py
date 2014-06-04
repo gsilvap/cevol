@@ -66,8 +66,11 @@ def create_sample_test(dimension, limit):
     """
     lista = np.random.permutation(limit-1)
     lista = lista + 1
-
-    maxInBag = np.sum(lista[dimension:1.25*dimension])
+    min_in_lista = np.min(lista[:dimension])
+    indexes = np.where(lista > min_in_lista)[0]
+    indexes2 = np.random.choice(indexes, 0.25*dimension)
+    maxInBag = np.sum(indexes2)
+    #maxInBag = np.sum(lista[dimension:1.25*dimension])
     #get maxInBag
     #maxinlista = np.max(lista[:dimension])
     #indexes = np.where(lista > maxinlista)[0]
@@ -96,6 +99,6 @@ if __name__ == '__main__':
     #clean_project()
     #init_project()
     #print(timestamp())
-    a, b = create_sample_test(200,2000)
+    a, b = create_sample_test(5,20)
     print(a)
     print(b)
