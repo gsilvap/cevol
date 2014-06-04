@@ -13,6 +13,7 @@ from genetic_algorithm.crossover import *
 from genetic_algorithm.mutation import *
 from genetic_algorithm.survivors import *
 from genetic_algorithm.statistic import *
+import sys, getopt
 
 # Algoritmo genetico
 
@@ -79,6 +80,20 @@ def run_parents_selection(
         bests_matrix_1, averages_matrix_1,
         bests_matrix_2, averages_matrix_2,
         bests_matrix_3, averages_matrix_3)
+
+
+    with open("out/"+time_stamp_begin+'-'+time_stamp_end+"-configs.txt", 'w') as f:
+        f.write("numero de runs \t\t\t\t\t%d" % numb_runs + '\n'
+            + "maximo geracoes \t\t\t\t%d" % max_gener + '\n'
+            + "tamanho da populacao \t\t\t%d" % pop_size + '\n'
+            + "tamanho cromossoma \t\t\t\t%d" % cromo_size + '\n'
+            + "tamanho maximo \t\t\t\t\t%d" % max_size + '\n\n')
+        f.write("Lista de pesos: \n")
+        f.write(str(sizes))
+        f.close()
+
+
+
 
 
 def sea_first(
@@ -184,15 +199,35 @@ def sea_third(
 
     Analise estatistica dos resultados e tirar conclusões
 """
-
-
+def parse_input(argv):
+    FIRST_VAL = 30
+    SECOND_VAL = 150
+    POP_SIZE = 100
+    try:
+        opts, args = getopt.getopt(argv,"h:f:s:p:",["ifile=","ofile="])
+    except getopt.GetoptError:
+        print ('algorithm.py -f <firstval> -s <secondval> -p <popsize>')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print ('algorithm.py -f <firstval> -s <secondval> -p <popsize>')
+            sys.exit()
+        elif opt in ("-f", "--firstval"):
+            FIRST_VAL = int(arg)
+        elif opt in ("-s", "--secondval"):
+            SECOND_VAL = int(arg)
+        elif opt in ("-p", "--popsize"):
+            POP_SIZE = int(arg)
+    print (FIRST_VAL)
+    return FIRST_VAL, SECOND_VAL, POP_SIZE
 # varicao das probabilidades de mutacao e recombinação
 # mutação no inicio e recombinação no fim ?
 if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
-    FIRST_VAL = 30
-    SECOND_VAL = 150
+    FIRST_VAL, SECOND_VAL, POP_SIZE = parse_input(sys.argv[1:])
+    #FIRST_VAL = 30
+    #SECOND_VAL = 150
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
     #SIZES = array([5, 8, 4, 11, 6, 12])
     #MAX_SIZE = 20
@@ -203,9 +238,7 @@ if __name__ == '__main__':
     #array([5, 8, 4, 11, 6, 12])
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    POP_SIZE = 100
     #POP_SIZE = 100
-    #POP_SIZE = 50
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)
     # cromo_size         = 10
@@ -217,7 +250,7 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 1000
+    MAX_GENER = 1
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,

@@ -1,12 +1,12 @@
 #Instrutions to run programs:
 
-###pcarmona
+###algorithm
 
-run pcarmona
+run algorithm
 
     source activate py3k
 
-    python pcarmona.py
+    python algorithm.py -f <firstval> -s <secondval> -p <popsize>
 
 
 ###TODO:
