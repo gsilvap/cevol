@@ -23,8 +23,8 @@ def subset_fitness(indiv, sizes, max_size):
     - the more elements the indiv has, the less score he has,
     because he want individuals with minimization of cardinality
     """
-    alfa = 1
-    beta = 2
+    alfa = 2
+    beta = 1
     fitness = sum(sizes * indiv, axis=0)
     fitness = where(fitness > max_size, max_size - alfa * (fitness - max_size), fitness)
     the_more_elements_in_less_its_fitness = - beta * (sum( indiv ))
@@ -48,6 +48,11 @@ if __name__ == '__main__':
     indiv1[1]= subset_fitness(indiv1[0], sizes, max_size)
     indiv2[1]= subset_fitness(indiv2[0], sizes, max_size)
     indiv3[1]= subset_fitness(indiv3[0], sizes, max_size)
+
+    indiv1[0] = [sizes[i] for i in range(len(indiv1[0])) if (indiv1[0][i] == 1)]
+    indiv2[0] = [sizes[i] for i in range(len(indiv2[0])) if (indiv2[0][i] == 1)]
+    indiv3[0] = [sizes[i] for i in range(len(indiv3[0])) if (indiv3[0][i] == 1)]
+
     print(indiv1)
     print(indiv2)
     print(indiv3)
