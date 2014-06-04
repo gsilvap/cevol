@@ -203,14 +203,15 @@ def parse_input(argv):
     FIRST_VAL = 30
     SECOND_VAL = 150
     POP_SIZE = 100
+    MAX_GENER = 1000
     try:
-        opts, args = getopt.getopt(argv,"h:f:s:p:",["ifile=","ofile="])
+        opts, args = getopt.getopt(argv,"h:f:s:p:g:",["ifile=","ofile="])
     except getopt.GetoptError:
-        print ('algorithm.py -f <firstval> -s <secondval> -p <popsize>')
+        print ('algorithm.py -f <firstval> -s <secondval> -p <popsize> -g <maxgener>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print ('algorithm.py -f <firstval> -s <secondval> -p <popsize>')
+            print ('algorithm.py -f <firstval> -s <secondval> -p <popsize> -g <maxgener>')
             sys.exit()
         elif opt in ("-f", "--firstval"):
             FIRST_VAL = int(arg)
@@ -218,8 +219,9 @@ def parse_input(argv):
             SECOND_VAL = int(arg)
         elif opt in ("-p", "--popsize"):
             POP_SIZE = int(arg)
-    print (FIRST_VAL)
-    return FIRST_VAL, SECOND_VAL, POP_SIZE
+        elif opt in ("-g", "--maxgener"):
+            MAX_GENER = int(arg)
+    return FIRST_VAL, SECOND_VAL, POP_SIZE, MAX_GENER
 # varicao das probabilidades de mutacao e recombinação
 # mutação no inicio e recombinação no fim ?
 if __name__ == '__main__':
@@ -250,7 +252,6 @@ if __name__ == '__main__':
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
     SELECT_SURVAVORS = survivors_steady_state
-    MAX_GENER = 1
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,
