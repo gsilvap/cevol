@@ -191,8 +191,8 @@ def sea_third(
 if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
-    FIRST_VAL = 5
-    SECOND_VAL = 20
+    FIRST_VAL = 30
+    SECOND_VAL = 150
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
     #SIZES = array([5, 8, 4, 11, 6, 12])
     #MAX_SIZE = 20
@@ -203,9 +203,9 @@ if __name__ == '__main__':
     #array([5, 8, 4, 11, 6, 12])
     NUMBER_RUNS = 30
     TIMESTAMP = timestamp()
-    #POP_SIZE = 200
+    POP_SIZE = 400
     #POP_SIZE = 100
-    POP_SIZE = 50
+    #POP_SIZE = 50
     # pop_size           = 150
     CROMO_SIZE = len(SIZES)
     # cromo_size         = 10
