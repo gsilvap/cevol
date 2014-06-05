@@ -13,9 +13,7 @@
 \maketitle
 
 \begin{abstract}
-
-O resumo é o local onde se faz a síntese do documento.
-Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} relativa ao texto teórico que contam para a avaliação na cadeira. São descritas as suas várias secções e o que se pretende com cada uma delas.  Este documento deve ter um \textbf{máximo de três páginas de texto}, não sendo obrigatório a sua escrita em \LaTeX{}. A inclusão de figuras e/ou tabelas não  interfere com este limite.Pode ser escrito em português ou em inglês.
+Este trabalho procura rever e refletir sobre um artigo que apresenta um mecanismo de recombinação inspirado na biologia celular, com o nome de transposição.
 \end{abstract}
 
 \section{What}
@@ -23,54 +21,34 @@ Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} r
 %Aqui se descreve a referência do trabalho e se dá o contexto, isto é, a área e o \textbf{tema} do artigo (do ponto de vista do autor).
 
 O artigo revisto, \cite{Simoes99transposition:a}, tem como área de estudo a programação inspirada na biologia evolucionária.
-Nesta área estudaram-se desde cedo e com maior difusão dois operadores genéticos de variação, sendo eles a mutação de genes de um cromossoma e o cruzamento de cromossomas. Nestes estudos sobre operadores genéticos de variação foi retirada a conclusão de que a mutação não é suficiente só por si.
+Nesta área estudaram-se desde cedo e com maior difusão dois operadores genéticos de variação, sendo eles a mutação de genes de um cromossoma e o cruzamento de cromossomas.
+%Nestes estudos sobre operadores genéticos de variação foi retirada a conclusão de que a mutação não é suficiente só por si.
 
 Na biologia existem ainda outros métodos de recombinação menos populares, como por exemplo \textit{transformation, transduction, conjugation, retroinsertion, fusion, unequal recombination, transposition}\cite{Simoes99transposition:a}. De estes métodos alternativos, que envolvem mecanismos como a inserção, a duplicação ou movimento, foi selecionado um método pelos autores para a realização deste artigo.
 
 O artigo debruça-se sobre um método diferente de recombinação genética e presente na biologia celular, a transposição.
 Na biologia celular, a transposição permite a recombinação de genes através de permutação dentro do cromossoma, ou por vezes também permutações entre cromossomas.
-A transposição é um mecanismo que acontece devido a unidades móveis genéticas chamadas transpósons.
-Os movimentos dos transpóson podem se manifestar de várias maneiras:
-\begin{itemize}
-    \item Alguns transpósons movimentam-se para zonas novas do mesmo cromossoma, ou ainda para outros cromossomas;
-    \item Outros transpóson deixam cópias nos locais destino;
-    \item Existem ainda transpósons que fazem cópias desde a sua posição original e enviam essas copias para outros locais.
-\end{itemize}
-
-\paragraph{Transposição Computacional}
-
-Na programação genética, a mutação é um mecanismo que aplicado com uma pequena probabilidade, permite misturar um pouco algumas zonas do cromossoma, permitindo continuar a evolução do algoritmo genético. Pelo contrário, o cruzamento é um mecanismo que permite maior variação dos cromossomas, ao mesmo tempo que produz descendentes com qualidade.  Tomando como ponto de partida a estrutura padrão da programação genética, e sabendo que o operador transposição pode assumir mecanismos semelhantes ao cruzamento, foi tomada a decisão de substituir o cruzamento pela transposição. O método utilizado para programar a transposição assume trocas de "material genético" entre dois indivíduos. No próximo paragrafo é exposto o algoritmo utilizado.
-
-\paragraph{Algoritmo}
-
-Depois de serem escolhidos dois progenitores, é procurado um transposon em um dos pais.
-Assumiu-se que é trocada a mesma
-
-No trabalho \cite{Simoes99transposition:a} são ainda expostos resultados promissores, mas ao mesmo tempo os autores consideram ser um estudo ainda curto para tirar conclusões finais.
-
-
-
-Computational Transposition
-After selecting two parents for mating we look for the transposon in one of them.
-The same amount of genetic material is exchanged between the two chromosomes according to the found insertion point
-Now, we are going to describe how the transposon will be formed, how it will move in the genome, how to define the insertion point, how to define the flanking sequences length and how the integration in the new position will take place.
-
--Choose at random a gene
--flanking sequence lenght (FSL) genes immediately before gene T
--second flanking sequence can be identical or inverse to the first one
-
-- In case no other FSL found there will be no transposition.
-- If there is no equal or inverse sequence in the target chromosome, the insertion point is defined randomly
+A transposição é um mecanismo que acontece devido a unidades móveis genéticas chamadas transpósons, que podem se manifestar de várias maneiras. Podem movimentar-se para zonas novas do mesmo cromossoma, ou ainda para outros cromossomas, outros transpóson deixam cópias nos locais destino, e existem ainda transpósons que fazem cópias desde a sua posição original e enviam essas copias para outros locais.
 
 
 \section{Why}
 
 %Porque é que o \textbf{autor} acha a questão relevante? Porque é que \textbf{nós} achamos a questão relevante? Aqui se colocam as respostas a estas duas questões.
+Na programação genética, a mutação é um mecanismo que aplicado com uma pequena probabilidade, permite misturar um pouco algumas zonas do cromossoma, permitindo continuar a evolução do algoritmo genético. Pelo contrário, o cruzamento é um mecanismo que permite maior variação dos cromossomas, ao mesmo tempo que produz descendentes com qualidade.  Tomando como ponto de partida a estrutura padrão da programação genética, e sabendo que o operador transposição pode assumir mecanismos semelhantes ao cruzamento, os autores procuraram substituir o cruzamento pela transposição.
 
 \section{Contribution(s)}
 
 %O que \textbf{propõe} o autor? Caso exista uma análise experimental, quais os \textbf{resultados} que suportam as conclusões do autor?
-
+O método utilizado para programar a transposição assume trocas de "material genético" entre dois indivíduos.
+Depois de serem escolhidos dois progenitores, é procurado um transpóson em um dos pais.
+Os autores estabeleceram que é trocada a mesma quantidade de informação entre os dois cromossomas de acordo com o ponto de inserção no cromossoma destino.
+O processo para a escolha de um transposen, é realizado num dos progenitores:
+\begin{itemize}
+    \item É escolhido um gene do progenitor aleatoriamente. Os genes imediatamente antes do gene escolhido ao acaso formam a \textit{flanking sequence lenght} (FSL).
+    \item A segunda FSL que corresponde ao final do transposen é procurada a partir do gene escolhido ao acaso, dando a volta ao cromossoma se for necessário.
+\end{itemize}
+Depois disto é efetuada uma troca de "material genético" com outro progenitor, sendo o ponto de inserção no progenitor identificado pelo complexo FSL.
+No entanto, os autores referem resoluções para o caso de não ser encontrado nenhum transpósen no primeiro progenitor, no qual não se faz a transposição nesses progenitores, e portanto os filhos são copias dos pais. Refere ainda que para o caso de não ser encontrado o FSL correspondente no segundo progenitor, a inserção do transpósen é realizada num ponto aleatório do segundo progenitor.
 
 \section{Like/ Don't Like}
 
