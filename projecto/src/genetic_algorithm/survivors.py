@@ -21,6 +21,17 @@ def best_pop(population):
     population.sort(key=itemgetter(1), reverse=True)
     return population[0]
 
+# Survivals: elitism
+def survivors_elitism(parents,offspring,elite):
+    """ Assumption: no size problems. Both populations are ordered by fitness."""
+    size = len(parents)
+    comp_elite = int(size* elite)
+    new_population = parents[:comp_elite] + offspring[:size - comp_elite]
+    return new_population
+
+
+
+
 if __name__ == '__main__':
     import init_pop
     import fitness
@@ -45,7 +56,7 @@ if __name__ == '__main__':
 
     select_survivors   = survivors_steady_state
 
-    population = select_survivors(population, offspring)
+    population = select_survivors(population, offspring, 0.02)
     #[print (i) for i in offspring]
     print ("pop:")
     #[print (i) for i in population]

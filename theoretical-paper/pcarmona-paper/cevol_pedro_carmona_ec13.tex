@@ -23,25 +23,28 @@ Este texto pretende ilustrar o que se pretende com a \textbf{ficha de leitura} r
 %Aqui se descreve a referência do trabalho e se dá o contexto, isto é, a área e o \textbf{tema} do artigo (do ponto de vista do autor).
 
 O artigo revisto, \cite{Simoes99transposition:a}, tem como área de estudo a programação inspirada na biologia evolucionária.
-Nesta área estudaram-se desde cedo e com maior difusão dois operadores genéticos de variação, sendo eles a mutação de genes e o cruzamento de cromossomas. Nestes estudos sobre operadores genéticos de variação foi retirada a conclusão de que a mutação não é suficiente só por si.
+Nesta área estudaram-se desde cedo e com maior difusão dois operadores genéticos de variação, sendo eles a mutação de genes de um cromossoma e o cruzamento de cromossomas. Nestes estudos sobre operadores genéticos de variação foi retirada a conclusão de que a mutação não é suficiente só por si.
 
 Na biologia existem ainda outros métodos de recombinação menos populares, como por exemplo \textit{transformation, transduction, conjugation, retroinsertion, fusion, unequal recombination, transposition}\cite{Simoes99transposition:a}. De estes métodos alternativos, que envolvem mecanismos como a inserção, a duplicação ou movimento, foi selecionado um método pelos autores para a realização deste artigo.
 
 O artigo debruça-se sobre um método diferente de recombinação genética e presente na biologia celular, a transposição.
 Na biologia celular, a transposição permite a recombinação de genes através de permutação dentro do cromossoma, ou por vezes também permutações entre cromossomas.
-A transposição é um mecanismo que acontece devido a unidades móveis genéticas chamadas \textit{transposons}.
-Os movimentos dos \textit{transposons} podem se manifestar de várias maneiras:
+A transposição é um mecanismo que acontece devido a unidades móveis genéticas chamadas transpósons.
+Os movimentos dos transpóson podem se manifestar de várias maneiras:
 \begin{itemize}
-    \item Alguns \textit{transposons} movimentam-se para zonas novas do mesmo cromossoma, ou ainda para outros cromossomas;
-    \item Outros \textit{transposons} deixam cópias nos locais destino;
-    \item Existem ainda \textit{transpóson} que fazem cópias desde a sua posição original e enviam essas copias para outros locais.
+    \item Alguns transpósons movimentam-se para zonas novas do mesmo cromossoma, ou ainda para outros cromossomas;
+    \item Outros transpóson deixam cópias nos locais destino;
+    \item Existem ainda transpósons que fazem cópias desde a sua posição original e enviam essas copias para outros locais.
 \end{itemize}
 
 \paragraph{Transposição Computacional}
 
-Na programação genética, a mutação é um mecanismo que aplicado com uma pequena probabilidade, permite misturar um pouco algumas zonas do cromossoma, permitindo continuar a evolução do algoritmo genético. Pelo contrário, o cruzamento é um mecanismo que permite maior variação dos cromossomas, ao mesmo tempo que produz descendentes com qualidade.  Tomando como ponto de partida a estrutura padrão da programação genética, e sabendo que o operador transposição pode assumir mecanismos semelhantes ao cruzamento, foi tomada a decisão de substituir o cruzamento pela transposição.
+Na programação genética, a mutação é um mecanismo que aplicado com uma pequena probabilidade, permite misturar um pouco algumas zonas do cromossoma, permitindo continuar a evolução do algoritmo genético. Pelo contrário, o cruzamento é um mecanismo que permite maior variação dos cromossomas, ao mesmo tempo que produz descendentes com qualidade.  Tomando como ponto de partida a estrutura padrão da programação genética, e sabendo que o operador transposição pode assumir mecanismos semelhantes ao cruzamento, foi tomada a decisão de substituir o cruzamento pela transposição. O método utilizado para programar a transposição assume trocas de "material genético" entre dois indivíduos. No próximo paragrafo é exposto o algoritmo utilizado.
 
-Depois de serem escolhidos dois progenitores, é procurado
+\paragraph{Algoritmo}
+
+Depois de serem escolhidos dois progenitores, é procurado um transposon em um dos pais.
+Assumiu-se que é trocada a mesma
 
 No trabalho \cite{Simoes99transposition:a} são ainda expostos resultados promissores, mas ao mesmo tempo os autores consideram ser um estudo ainda curto para tirar conclusões finais.
 

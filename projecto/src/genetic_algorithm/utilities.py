@@ -57,7 +57,40 @@ def show(filename):
     plt.show()
 
 
+#def create_sample_test(dimension, limit):
+#    """creates a sample test of the max subset problem
+#
+#    Keyword arguments:
+#    n -- the real part (default 0.0)
+#    limit -- the imaginary part (default 0.0)
+#    """
+#    lista = np.random.permutation(limit-1)
+#    lista = lista + 1
+#    min_in_lista = np.min(lista[:dimension])
+#    indexes = np.where(lista > min_in_lista)[0]
+#    indexes2 = np.random.choice(indexes, 0.25*dimension)
+#    maxInBag = np.sum(indexes2)
+#    #maxInBag = np.sum(lista[dimension:1.25*dimension])
+#    #get maxInBag
+#    #maxinlista = np.max(lista[:dimension])
+#    #indexes = np.where(lista > maxinlista)[0]
+#    #index1 = random.choice(indexes)
+#    #index2 = random.choice(indexes)
+#    #index3 = random.choice(indexes)
+#    #maxInBag = lista[index1]+lista[index2]+lista[index3]
+#    #max e obtido atraves de 15%  dos melhores + 3%dos piores
+#    #caso nao seja possivel obter 3%, é com o maior e com o menor
+#    #maxsizeaux1 = int(0.05*dimension)
+#    #maxsizeaux2 = int(0.05*dimension)
+#    #sortedlist = np.sort(lista)
+#    #maxsize = sum(sortedlist[:1])
+#    #sortedlist = sortedlist[::-1]
+#    #maxsize = maxsize + sum(sortedlist[:1])
+#    return lista[:dimension], maxInBag
+
 def create_sample_test(dimension, limit):
+#300, 600
+
     """creates a sample test of the max subset problem
 
     Keyword arguments:
@@ -68,8 +101,14 @@ def create_sample_test(dimension, limit):
     lista = lista + 1
     min_in_lista = np.min(lista[:dimension])
     indexes = np.where(lista > min_in_lista)[0]
-    indexes2 = np.random.choice(indexes, 0.25*dimension)
-    maxInBag = np.sum(indexes2)
+
+    maxInBag=0
+    for x in range(1,random.randint(10,dimension)):
+        maxInBag=maxInBag+lista[x]
+    #indexes2 = np.random.choice(indexes, 0.25*dimension)
+
+
+    #maxInBag = np.sum(indexes2)
     #maxInBag = np.sum(lista[dimension:1.25*dimension])
     #get maxInBag
     #maxinlista = np.max(lista[:dimension])
@@ -87,7 +126,6 @@ def create_sample_test(dimension, limit):
     #sortedlist = sortedlist[::-1]
     #maxsize = maxsize + sum(sortedlist[:1])
     return lista[:dimension], maxInBag
-
 
 def clean_project():
     """cleans the project directory"""

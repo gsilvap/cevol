@@ -13,7 +13,8 @@ from genetic_algorithm.crossover import *
 from genetic_algorithm.mutation import *
 from genetic_algorithm.survivors import *
 from genetic_algorithm.statistic import *
-import sys, getopt
+import sys
+import getopt
 
 # Algoritmo genetico
 
@@ -35,7 +36,9 @@ import sys, getopt
 def run_parents_selection(
         time_stamp_begin, numb_runs, pop_size, cromo_size, fitness_func,
         select_parents, muta_method, cross_method, select_survivors,
-        max_gener, sizes, max_size):
+        max_gener, elite, sizes, max_size):
+    if int(pop_size * elite) == 0:
+        print('No Elitism will be used!!!')
 
     filename_bests_of_run = (
         'out/' + time_stamp_begin + '_bests_of_run_generations('
@@ -45,27 +48,30 @@ def run_parents_selection(
         #f_data.write(
         #    'best_individual_case1, best_individual_case2, '
         #    + 'best_individual_case3\n')
-        bests_matrix_1, averages_matrix_1 = init_runs_evaluation(max_gener,numb_runs)
-        bests_matrix_2, averages_matrix_2 = init_runs_evaluation(max_gener,numb_runs)
-        bests_matrix_3, averages_matrix_3 = init_runs_evaluation(max_gener,numb_runs)
+        bests_matrix_1, averages_matrix_1 = init_runs_evaluation(
+            max_gener, numb_runs)
+        bests_matrix_2, averages_matrix_2 = init_runs_evaluation(
+            max_gener, numb_runs)
+        bests_matrix_3, averages_matrix_3 = init_runs_evaluation(
+            max_gener, numb_runs)
 
         for current_run in range(numb_runs):
             print('RUN...%s' % (current_run+1))
             initial_pop = init_pop(pop_size, cromo_size, cromo_bin)
             best_1 = sea_first(
                 initial_pop, fitness_func, select_parents, muta_method,
-                cross_method, select_survivors, max_gener, sizes, max_size,
-                bests_matrix_1, averages_matrix_1, current_run)
+                cross_method, select_survivors, max_gener, elite, sizes,
+                max_size, bests_matrix_1, averages_matrix_1, current_run)
 
             best_2 = sea_second(
                 initial_pop, fitness_func, select_parents, muta_method,
-                cross_method, select_survivors, max_gener, sizes, max_size,
-                bests_matrix_2, averages_matrix_2, current_run)
+                cross_method, select_survivors, max_gener, elite, sizes,
+                max_size, bests_matrix_2, averages_matrix_2, current_run)
 
             best_3 = sea_third(
                 initial_pop, fitness_func, select_parents, muta_method,
-                cross_method, select_survivors, max_gener, sizes, max_size,
-                bests_matrix_3, averages_matrix_3, current_run)
+                cross_method, select_survivors, max_gener, elite, sizes,
+                max_size, bests_matrix_3, averages_matrix_3, current_run)
             f_data.write(
                 "%.0f" % best_1[1] + ', ' + "%.0f" % best_2[1] + ', '
                 + "%.0f" % best_3[1] + '\n')
@@ -82,7 +88,8 @@ def run_parents_selection(
         bests_matrix_3, averages_matrix_3)
 
 
-    with open("out/"+time_stamp_begin+'-'+time_stamp_end+"-configs.txt", 'w') as f:
+    with open("out/"+time_stamp_begin+'-'+time_stamp_end+
+        "-configs.txt", 'w') as f:
         f.write("numero de runs \t\t\t\t\t%d" % numb_runs + '\n'
             + "maximo geracoes \t\t\t\t%d" % max_gener + '\n'
             + "tamanho da populacao \t\t\t%d" % pop_size + '\n'
@@ -93,12 +100,9 @@ def run_parents_selection(
         f.close()
 
 
-
-
-
 def sea_first(
         initial_pop, fitness_func, select_parents, muta_method, cross_method,
-        select_survivors, max_gener, sizes, max_size, bests_matrix,
+        select_survivors, max_gener, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_run):
 
     pop_size = len(initial_pop)
@@ -109,7 +113,7 @@ def sea_first(
     population = generations(
         population, pop_size, fitness_func, prob_cross, prob_muta,
         select_parents, muta_method, cross_method, select_survivors,
-        max_gener, sizes, max_size, bests_matrix,
+        max_gener, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_generation, current_run)
     best_individual = best_pop(population)
     return best_individual
@@ -117,7 +121,7 @@ def sea_first(
 
 def sea_second(
         initial_pop, fitness_func, select_parents, muta_method, cross_method,
-        select_survivors, max_gener, sizes, max_size, bests_matrix,
+        select_survivors, max_gener, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_run):
 
     pop_size = len(initial_pop)
@@ -130,7 +134,7 @@ def sea_second(
     population = generations(
         population, pop_size, fitness_func, prob_cross, prob_muta,
         select_parents, muta_method, cross_method, select_survivors,
-        max_gener_70, sizes, max_size, bests_matrix,
+        max_gener_70, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_generation, current_run)
 
     prob_cross = 0
@@ -140,7 +144,7 @@ def sea_second(
     population = generations(
         population, pop_size, fitness_func, prob_cross,
         prob_muta, select_parents, muta_method, cross_method,
-        select_survivors, max_gener_30, sizes, max_size, bests_matrix,
+        select_survivors, max_gener_30, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_generation, current_run)
 
     best_individual = best_pop(population)
@@ -150,15 +154,17 @@ def sea_second(
 def generations(
         population, pop_size, fitness_func, prob_cross, prob_muta,
         select_parents, muta_method, cross_method, select_survivors,
-        max_gener, sizes, max_size, bests_matrix, averages_matrix, current_generation, current_run):
+        max_gener, elite, sizes, max_size, bests_matrix, averages_matrix,
+        current_generation, current_run):
     for gener in range(max_gener):
         mates = select_parents(population, pop_size, 3)
         offspring = crossover(mates, prob_cross, cross_method)
         offspring = mutation(offspring, prob_muta, muta_method)
         offspring = eval_pop(offspring, fitness_func, sizes, max_size)
-        population = select_survivors(population, offspring)
+        population = select_survivors(population, offspring, elite)
         evaluate_generation(
-            population, bests_matrix, averages_matrix, current_generation +gener , current_run)
+            population, bests_matrix, averages_matrix, current_generation
+            + gener, current_run)
     return population
 
 # ---------------------- EVOLUTIONARY ALGORITHM ---------------------------
@@ -166,7 +172,7 @@ def generations(
 
 def sea_third(
         initial_pop, fitness_func, select_parents, muta_method, cross_method,
-        select_survivors, max_gener, sizes, max_size, bests_matrix,
+        select_survivors, max_gener, elite, sizes, max_size, bests_matrix,
         averages_matrix, current_run):
     pop_size = len(initial_pop)
     population = eval_pop(initial_pop, fitness_func, sizes, max_size)
@@ -186,7 +192,7 @@ def sea_third(
             prob_cross, prob_muta, select_parents,
             muta_method, cross_method,
             select_survivors, max_gener_interval,
-            sizes, max_size, bests_matrix,
+            elite, sizes, max_size, bests_matrix,
             averages_matrix, current_generation, current_run)
 
     best_individual = best_pop(population)
@@ -228,6 +234,14 @@ if __name__ == '__main__':
     """problem: sum subset of integers"""
     init_project()
     FIRST_VAL, SECOND_VAL, POP_SIZE, MAX_GENER = parse_input(sys.argv[1:])
+    print ("FIRST_VAL")
+    print (FIRST_VAL)
+    print ("SECOND_VAL")
+    print (SECOND_VAL)
+    print ("POP_SIZE")
+    print (POP_SIZE)
+    print ("MAX_GENER")
+    print (MAX_GENER)
     #FIRST_VAL = 30
     #SECOND_VAL = 150
     SIZES, MAX_SIZE = create_sample_test(FIRST_VAL, SECOND_VAL)
@@ -251,9 +265,11 @@ if __name__ == '__main__':
     MUTA_METHOD = muta_bin
     #cross_method       = one_point_cross, uniform_cross
     CROSS_METHOD = uniform_cross
-    SELECT_SURVAVORS = survivors_steady_state
+    #SELECT_SURVAVORS = survivors_steady_state
+    SELECT_SURVAVORS = survivors_elitism
+    ELITE = 0.02
 
     run_parents_selection(
         TIMESTAMP, NUMBER_RUNS, POP_SIZE, CROMO_SIZE, FITNESS_FUNC,
         SELECT_PARENTS, MUTA_METHOD, CROSS_METHOD, SELECT_SURVAVORS,
-        MAX_GENER, SIZES, MAX_SIZE)
+        MAX_GENER, ELITE, SIZES, MAX_SIZE)
