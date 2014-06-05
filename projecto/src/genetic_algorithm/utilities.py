@@ -103,7 +103,7 @@ def create_sample_test(dimension, limit):
     indexes = np.where(lista > min_in_lista)[0]
 
     maxInBag=0
-    for x in range(1,random.randint(10,dimension)):
+    for x in range(1,random.randint(dimension*0.5,dimension*0.8)):
         maxInBag=maxInBag+lista[x]
     #indexes2 = np.random.choice(indexes, 0.25*dimension)
 
