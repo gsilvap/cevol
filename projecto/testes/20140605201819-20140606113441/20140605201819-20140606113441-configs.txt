@@ -1,0 +1,8 @@
+numero de runs 					30
+maximo geracoes 				200
+tamanho da populacao 			200
+tamanho cromossoma 				2500
+tamanho maximo 					7113679
+
+Lista de pesos: 
+[5775  785 6065 ...,  274 7420 3975]
