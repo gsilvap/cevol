@@ -175,7 +175,50 @@ def save_matrix(time_stamp, data_title, matrix):
             f_data.write("%.0f" % line[(len(line)-1)] + '\n')
         f_data.close()
 
+
+def draw_vs(title, data1, data2, data3, filename):
+
+    plt.grid(True)
+    plt.figure(1)
+    """Plot the data"""
+    x1 = list(range(len(data1)))
+    x2 = list(range(len(data2)))
+    x3 = list(range(len(data3)))
+    plt.grid(True)
+    plt.title('Compare ' + title)
+    plt.xlabel('Generation')
+    plt.ylabel('Fitness')
+    plt.plot(x1,data1, 'r', label="A")
+    plt.plot(x2,data2, 'b', label="B")
+    plt.plot(x2,data3, 'g', label="C")
+    #legend([data1,data2, data3], ["A", "B", "C"])
+    plt.legend(loc='lower right')
+    #plt.show()
+    plt.savefig(filename)
+
+def vs_dat_from_file(filename):
+    with open(filename, 'r') as f_data:
+        data3 = []
+        data2 = []
+        data1 = []
+        for line in f_data:
+            data = line[:-1].split(', ')
+            data1.append(str(data[0]))
+            data2.append(str(data[1]))
+            data3.append(str(data[2]))
+        return  data1, data2, data3
+
+def save_vs_graph(timestamp):
+    data1, data2, data3 = vs_dat_from_file("out/"+timestamp+"_bests_generations(200).csv")
+    draw_vs("bests", data1, data2, data3, "figures/"+ timestamp +"-VS-Bests")
+
 if __name__ == '__main__':
+    save_vs_graph("20140605045727-20140605081159")
+
+
+
+
+    """
     bests_matrix, averages_matrix = init_runs_evaluation(100,30)
 
     import utilities
@@ -195,7 +238,7 @@ if __name__ == '__main__':
         bests_matrix_1, averages_matrix_1,
         bests_matrix_2, averages_matrix_2,
         bests_matrix_3, averages_matrix_3)
-
+    """
    #print (runs_bests_1)
     #for i in range (0, 5):
     #  if runs_bests_1.find(i):
