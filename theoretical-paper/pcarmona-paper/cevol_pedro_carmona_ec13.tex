@@ -1,4 +1,4 @@
-\documentclass[12pt,portuguese,a4paper]{article}
+\documentclass[11pt,portuguese,a4paper]{article}
 \usepackage{includes}
 
 \title{\LARGE{\textbf{Revisão e Reflexão do Artigo:}}\\ Transposition - A Biologically Inspired Mechanism to Use with Genetic Algorithms \cite{Simoes99transposition:a}}
@@ -6,6 +6,7 @@
 \date{\today}
 
 \renewcommand\lstlistingname{Listagem}
+\usepackage[square,sort,comma,numbers]{natbib}
 
 %%% BEGIN DOCUMENT
 \begin{document}
@@ -13,7 +14,7 @@
 \maketitle
 
 \begin{abstract}
-Este trabalho procura rever e refletir sobre um artigo que apresenta um mecanismo de recombinação inspirado na biologia celular, com o nome de transposição.
+Este trabalho procura rever e refletir sobre um artigo que apresenta um mecanismo de recombinação inspirado na biologia celular, com o nome de transposição. Para isso, é exposta a inspiração que levou ao algoritmo, assim como o algoritmo e os resultados. As decisões tomadas são credíveis e com resultados comprovaram a sua eficiência, ainda assim, são propostas questões e alternativas aos autores de \cite{Simoes99transposition:a}.
 \end{abstract}
 
 \section{What}
@@ -39,8 +40,8 @@ Na programação genética, a mutação é um mecanismo que aplicado com uma peq
 \section{Contribution(s)}
 
 %O que \textbf{propõe} o autor? Caso exista uma análise experimental, quais os \textbf{resultados} que suportam as conclusões do autor?
-O método utilizado para programar a transposição assume trocas de "material genético" entre dois indivíduos.
-Depois de serem escolhidos dois progenitores, é procurado um transpóson em um dos pais.
+O autor propõe um método para programar a transposição, no qualassume trocas de "material genético" entre dois indivíduos.
+São escolhidos dois progenitores, e no primeiro progenitor é procurado o transpóson.
 Os autores estabeleceram que é trocada a mesma quantidade de informação entre os dois cromossomas de acordo com o ponto de inserção no cromossoma destino.
 O processo para a escolha de um transposen, é realizado num dos progenitores:
 \begin{itemize}
@@ -50,13 +51,25 @@ O processo para a escolha de um transposen, é realizado num dos progenitores:
 Depois disto é efetuada uma troca de "material genético" com outro progenitor, sendo o ponto de inserção no progenitor identificado pelo complexo FSL.
 No entanto, os autores refere a solução para o caso de não ser encontrado nenhum transpósen no primeiro progenitor, no qual não se faz a transposição nesses progenitores, e portanto os filhos são copias dos pais. Refere ainda que para o caso de não ser encontrado o FSL correspondente no segundo progenitor, a inserção do transpósen é realizada num ponto aleatório do segundo progenitor.
 
-Foi realizado um teste para escolher o melhor comprimento de FSL (Fig. 10 in \cite{Simoes99transposition:a}), que permitiu observar que o melhor comprimento FSL seria 4. Foi também possível observar que quanto maior o comprimento, menor é o performance deste operado, um exemplo disso é no caso com 50 indivíduos de população, o pior dos casos é 10, que é ao mesmo tempo o maior comprimento de FSL deste teste.
-Outros testes feitos para comparar o novo mecanismo, a transposição, com o mecanismo de cruzamento, tiveram em conta as variações existentes de curzamento, nomeadamente o cruzamento uniforme, o cruzamento num ponto e o cruzamento em dois pontos.
+Foi realizado um teste para escolher o melhor comprimento de FSL (Fig. 10 in \cite{Simoes99transposition:a}), que permitiu observar que o melhor comprimento FSL seria 4. Foi também possível provar que quanto maior o comprimento do FSL, menor é o performance deste operado, um exemplo disso é no caso com 50 indivíduos de população, o pior dos casos é 10, que é ao mesmo tempo o maior comprimento de FSL deste teste.
+
+Outros testes feitos para comparar o novo mecanismo, a transposição, com o mecanismo de cruzamento, tiveram em conta as variações existentes de cruzamento, nomeadamente o cruzamento uniforme (CZU), o cruzamento num ponto (CZ1P) e o cruzamento em dois pontos (CZ2P).
+O novo operador, com 50 elementos de população, teve melhores resultados que todas as variações de CZ1P em 50, 100 e 200, assim como no CZU para as mesmas populações.
+No caso do CZ2P, os resultados foram superiores comparando a transposição de 50 elementos de população com o CZ2P de 50 e 100 elementos. Para ser superior ao  CZ2P com 200 de população, a transposição precisou apenas de 100 elementos de população.
+Os resultados suportam a conclusão do autor, assim como inspiraram mais estudos no mesmo projeto \cite{Simoes00usinggenetic}.
+
+
 \section{Like/ Don't Like}
+
+Concordo com introdução deste novo mecanismo, que foi inspirado na biologia celular, e que obteve resultados promissores. Os autores aplicaram a transposição como um mecanismo para recombinação que favorece a procura global.
+
+A meu ver a transposição também se poderia aplicar em mecanismos de recombinação que favorecem a procura local, onde o transpósen identificado era submetido a uma mutação, simulando que o transpósen sai do cromossoma e outro transpósen assumiu o seu lugar. Ainda que fosse utilizado para procura global, este método poderia também ser utilizado para colmatar o caso em que não é encontrado FSL no segundo progenitor, em vez da inserção aleatória. Esta abordagem poderia favorecer a transposição em casos de estudo em que a ordem interessa.
+Para o caso de não ser encontrado nenhum transpósen no primeiro progenitor, uma abordagem que sugeria seria fazer essa procura no segundo progenitor.
 
 %Esta é uma parte relevante do trabalho, para efeitos de avaliação. Identifique os aspetos \textbf{positivos} e \textbf{negativos} da proposta. Que \textbf{você} alternativas sugere? As ideias do autor podem ser adaptadas a outras questões?\\
 
 \bibliographystyle{IEEEtran}
+\renewcommand{\bibfont}{\small}
 \bibliography{cevol_pedro_carmona_ec13}
 
 \end{document}
